@@ -15,7 +15,7 @@ const otherLocale: Locale = locale === 'es' ? 'en' : 'es';
   hreflang={otherLocale}
   lang={otherLocale}
   aria-label={t(locale, 'lang.switchLabel')}
-  class:list={['nav-link tracking-wide', className]}
+  class:list={['nav-link inline-flex gap-1.5 tracking-wide', className]}
 >
   <span class:list={[locale === 'es' && 'text-foreground']}>ES</span>
   <span aria-hidden="true">·</span>

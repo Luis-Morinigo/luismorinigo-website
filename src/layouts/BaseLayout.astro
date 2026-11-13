@@ -55,9 +55,9 @@ const ogImageUrl = new URL(ogImage, site).href;
     <meta property="og:image:alt" content={t(locale, 'meta.ogAlt')} />
     <meta name="twitter:card" content="summary_large_image" />
   </head>
-  <body>
+  <body class="flex min-h-dvh flex-col">
     <Header />
-    <main id="contenido" tabindex="-1" class="outline-none">
+    <main id="contenido" tabindex="-1" class="flex-1 outline-none">
       <slot />
     </main>
     <Footer />
