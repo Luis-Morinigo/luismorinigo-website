@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   site: 'https://luismorinigo.com',
+  trailingSlash: 'always',
   i18n: {
     defaultLocale: 'es',
     locales: ['es', 'en'],
