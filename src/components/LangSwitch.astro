@@ -1,0 +1,23 @@
+---
+import { localizedPath, t, toLocale, type Locale } from '@/i18n';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+const otherLocale: Locale = locale === 'es' ? 'en' : 'es';
+---
+
+<a
+  href={localizedPath(otherLocale, Astro.url.pathname)}
+  hreflang={otherLocale}
+  lang={otherLocale}
+  aria-label={t(locale, 'lang.switchLabel')}
+  class:list={['nav-link tracking-wide', className]}
+>
+  <span class:list={[locale === 'es' && 'text-foreground']}>ES</span>
+  <span aria-hidden="true">·</span>
+  <span class:list={[locale === 'en' && 'text-foreground']}>EN</span>
+</a>

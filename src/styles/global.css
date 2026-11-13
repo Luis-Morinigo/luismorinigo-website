@@ -112,3 +112,13 @@
 @utility nav-link {
   @apply border-b-2 border-transparent py-1.5 text-[0.8125rem] font-semibold tracking-[0.08em] text-muted-foreground uppercase transition-colors hover:border-primary hover:text-foreground;
 }
+
+@utility icon-btn {
+  @apply inline-flex size-11 items-center justify-center rounded-control border border-border bg-transparent text-foreground transition-colors hover:border-primary hover:text-primary;
+}
+
+@layer base {
+  html:has(dialog[open]) {
+    overflow: hidden;
+  }
+}

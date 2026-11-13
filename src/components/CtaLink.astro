@@ -1,0 +1,25 @@
+---
+import { whatsappLink } from '@/config/site';
+import { t, toLocale } from '@/i18n';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+// Until the contact form exists, "Hablemos" opens WhatsApp. No number, no button.
+const href = whatsappLink(locale);
+---
+
+{href && (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class:list={['btn-primary text-sm tracking-wider uppercase', className]}
+  >
+    {t(locale, 'header.cta')}
+    <span class="sr-only">{` ${t(locale, 'a11y.newTab')}`}</span>
+  </a>
+)}

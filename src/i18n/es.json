@@ -8,5 +8,8 @@
   "header.navLabel": "Principal",
   "header.cta": "Hablemos",
   "lang.switchLabel": "English version",
-  "whatsapp.message": "Hola Luis, quiero conversar sobre mi negocio"
+  "whatsapp.message": "Hola Luis, quiero conversar sobre mi negocio",
+  "header.menuOpen": "Abrir menú",
+  "header.menuClose": "Cerrar menú",
+  "header.menuTitle": "Menú"
 }
