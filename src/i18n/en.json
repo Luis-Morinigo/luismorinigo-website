@@ -1,5 +1,12 @@
 {
   "meta.title": "Luis Morinigo — Finance and custom systems for SMEs",
   "meta.description": "15 years in multinational corporate finance plus the custom systems your business needs, from one person.",
-  "meta.ogAlt": "Luis Morinigo logo"
+  "meta.ogAlt": "Luis Morinigo logo",
+  "a11y.skipToContent": "Skip to content",
+  "a11y.newTab": "(opens in a new tab)",
+  "header.homeLabel": "Luis Morinigo, go to home",
+  "header.navLabel": "Main",
+  "header.cta": "Let's talk",
+  "lang.switchLabel": "Versión en español",
+  "whatsapp.message": "Hi Luis, I'd like to talk about my business"
 }

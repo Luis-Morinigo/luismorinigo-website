@@ -1,5 +1,6 @@
 ---
 import '@/styles/global.css';
+import Header from '@/components/Header.astro';
 import { defaultLocale, locales, localizedPath, t, toLocale } from '@/i18n';
 
 interface Props {
@@ -53,7 +54,8 @@ const ogImageUrl = new URL(ogImage, site).href;
     <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
-    <main id="contenido">
+    <Header />
+    <main id="contenido" tabindex="-1" class="outline-none">
       <slot />
     </main>
   </body>

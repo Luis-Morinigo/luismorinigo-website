@@ -1,0 +1,15 @@
+---
+import logo from '@/assets/logo.svg?raw';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+const paths = logo
+  .replace(/^[\s\S]*?<svg[^>]*>/, '')
+  .replace(/<\/svg>\s*$/, '')
+  .replaceAll(/fill="#[0-9a-fA-F]{3,6}"/g, 'fill="currentColor"');
+---
+
+<svg viewBox="0 0 512 512" fill="none" aria-hidden="true" class={className} set:html={paths} />

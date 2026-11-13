@@ -1,0 +1,67 @@
+---
+import Logo from '@/components/Logo.astro';
+import { navItems } from '@/config/navigation';
+import { whatsappLink } from '@/config/site';
+import { localizedPath, t, toLocale, type Locale } from '@/i18n';
+
+const locale = toLocale(Astro.currentLocale);
+const otherLocale: Locale = locale === 'es' ? 'en' : 'es';
+const pathname = Astro.url.pathname;
+const homeHref = localizedPath(locale, '/');
+const switchHref = localizedPath(otherLocale, pathname);
+const ctaHref = whatsappLink(locale);
+const nav = navItems.map((item) => ({
+  label: t(locale, item.label),
+  href: localizedPath(locale, item.path),
+}));
+---
+
+<a
+  href="#contenido"
+  class="btn-primary sr-only fixed top-3 left-3 z-50 focus:not-sr-only focus:px-5 focus:py-2"
+>
+  {t(locale, 'a11y.skipToContent')}
+</a>
+
+<header class="sticky top-0 z-30 border-b border-secondary bg-background/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-310 items-center justify-between gap-x-8 gap-y-3 px-4 py-3 sm:px-6 lg:px-10">
+    <a href={homeHref} aria-label={t(locale, 'header.homeLabel')} class="flex items-center">
+      <Logo class="size-11 text-primary" />
+    </a>
+
+    {nav.length > 0 && (
+      <nav aria-label={t(locale, 'header.navLabel')} class="flex flex-wrap gap-x-7.5 gap-y-1.5">
+        {nav.map((item) => (
+          <a href={item.href} class="nav-link">
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    )}
+
+    <div class="flex items-center gap-4.5">
+      <a
+        href={switchHref}
+        hreflang={otherLocale}
+        lang={otherLocale}
+        aria-label={t(locale, 'lang.switchLabel')}
+        class="nav-link tracking-wide"
+      >
+        <span class:list={[locale === 'es' && 'text-foreground']}>ES</span>
+        <span aria-hidden="true">·</span>
+        <span class:list={[locale === 'en' && 'text-foreground']}>EN</span>
+      </a>
+      {ctaHref && (
+        <a
+          href={ctaHref}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary text-sm tracking-wider uppercase"
+        >
+          {t(locale, 'header.cta')}
+          <span class="sr-only">{` ${t(locale, 'a11y.newTab')}`}</span>
+        </a>
+      )}
+    </div>
+  </div>
+</header>
