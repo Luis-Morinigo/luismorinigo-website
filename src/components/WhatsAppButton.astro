@@ -1,0 +1,31 @@
+---
+import { whatsappLink } from '@/config/site';
+import { t, toLocale } from '@/i18n';
+
+const locale = toLocale(Astro.currentLocale);
+const href = whatsappLink(locale);
+---
+
+{href && (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    aria-label={`${t(locale, 'whatsapp.label')} ${t(locale, 'a11y.newTab')}`}
+    class="fixed right-4 bottom-4 z-40 flex size-13 items-center justify-center rounded-full bg-whatsapp text-white shadow-lg shadow-background/50 transition-transform hover:-translate-y-1 sm:right-6 sm:bottom-6 sm:size-14"
+  >
+    <svg viewBox="0 0 24 24" class="size-6.5 sm:size-7" aria-hidden="true">
+      <path
+        d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linejoin="round"
+      ></path>
+      <path
+        d="M8.5 7.5c.3-.6.8-.6 1.1-.1l.8 1.6c.2.4 0 .8-.3 1.1l-.4.4c.6 1.3 1.7 2.4 3 3l.4-.4c.3-.3.7-.5 1.1-.3l1.6.8c.5.3.5.8-.1 1.1-1 .7-2.4.8-3.7.1A9 9 0 0 1 8.4 11c-.7-1.3-.6-2.6.1-3.5z"
+        fill="currentColor"
+      ></path>
+    </svg>
+  </a>
+)}

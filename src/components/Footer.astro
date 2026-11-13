@@ -1,0 +1,70 @@
+---
+import Logo from '@/components/Logo.astro';
+import SocialIcon from '@/components/SocialIcon.astro';
+import { contactEmail, siteName, social } from '@/config/site';
+import { localizedPath, t, toLocale } from '@/i18n';
+import type { SocialNetwork } from '@/lib/social';
+
+const locale = toLocale(Astro.currentLocale);
+const year = new Date().getFullYear();
+const networkNames: Record<SocialNetwork, string> = {
+  linkedin: 'LinkedIn',
+  github: 'GitHub',
+  x: 'X',
+  instagram: 'Instagram',
+};
+---
+
+<footer class="border-t border-secondary bg-footer text-muted-foreground">
+  <div class="mx-auto grid max-w-310 grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] gap-10 px-4 pt-14 pb-7 sm:px-6 lg:px-10">
+    <div>
+      <a
+        href={localizedPath(locale, '/')}
+        aria-label={t(locale, 'footer.homeLabel')}
+        class="inline-flex"
+      >
+        <Logo class="size-10 text-primary" />
+      </a>
+    </div>
+
+    {social.length > 0 && (
+      <div>
+        <h2 class="mb-3.5 font-sans text-body font-semibold tracking-normal text-foreground">
+          {t(locale, 'footer.follow')}
+        </h2>
+        <ul class="flex flex-wrap gap-3">
+          {social.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer me"
+                class="social-link"
+                aria-label={`${networkNames[link.network]} ${t(locale, 'a11y.newTab')}`}
+              >
+                <SocialIcon network={link.network} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )}
+
+    <div>
+      <h2 class="mb-3.5 font-sans text-body font-semibold tracking-normal text-foreground">
+        {t(locale, 'footer.contact')}
+      </h2>
+      <p class="mb-1.5">{t(locale, 'footer.contactLead')}</p>
+      <a href={`mailto:${contactEmail}`} class="text-primary underline-offset-4 hover:underline">
+        {contactEmail}
+      </a>
+    </div>
+  </div>
+
+  <div class="mx-auto flex max-w-310 flex-wrap justify-between gap-2 border-t border-secondary px-4 pt-5 pb-24 text-sm sm:pb-8 sm:px-6 lg:px-10">
+    <p>
+      &copy; {year} {siteName}. {t(locale, 'footer.rights')}
+    </p>
+    <p>{t(locale, 'footer.mission')}</p>
+  </div>
+</footer>

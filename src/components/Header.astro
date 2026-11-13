@@ -1,0 +1,136 @@
+---
+import CtaLink from '@/components/CtaLink.astro';
+import LangSwitch from '@/components/LangSwitch.astro';
+import Logo from '@/components/Logo.astro';
+import { navItems } from '@/config/navigation';
+import { localizedPath, t, toLocale } from '@/i18n';
+
+const locale = toLocale(Astro.currentLocale);
+const homeHref = localizedPath(locale, '/');
+const nav = navItems.map((item) => ({
+  label: t(locale, item.label),
+  href: localizedPath(locale, item.path),
+}));
+---
+
+<a
+  href="#contenido"
+  class="btn-primary sr-only fixed top-3 left-3 z-50 focus:not-sr-only focus:px-5 focus:py-2"
+>
+  {t(locale, 'a11y.skipToContent')}
+</a>
+
+<header class="sticky top-0 z-30 border-b border-secondary bg-background/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-310 items-center justify-between gap-x-8 gap-y-3 px-4 py-3 sm:px-6 lg:px-10">
+    <a href={homeHref} aria-label={t(locale, 'header.homeLabel')} class="flex items-center">
+      <Logo class="size-10 text-primary md:size-11" />
+    </a>
+
+    {nav.length > 0 && (
+      <nav
+        aria-label={t(locale, 'header.navLabel')}
+        class="hidden flex-wrap gap-x-7.5 gap-y-1.5 md:flex"
+      >
+        {nav.map((item) => (
+          <a href={item.href} class="nav-link">
+            {item.label}
+          </a>
+        ))}
+      </nav>
+    )}
+
+    <div class="hidden items-center gap-4.5 md:flex">
+      <LangSwitch />
+      <CtaLink />
+    </div>
+
+    <button
+      type="button"
+      class="icon-btn md:hidden"
+      aria-label={t(locale, 'header.menuOpen')}
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      commandfor="mobile-menu"
+      command="show-modal"
+      data-menu-open
+    >
+      <svg viewBox="0 0 24 24" class="size-5.5" aria-hidden="true">
+        <path
+          d="M4 7h16M4 12h16M4 17h16"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        ></path>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<dialog
+  id="mobile-menu"
+  aria-label={t(locale, 'header.menuTitle')}
+  class="m-0 h-dvh max-h-none w-full max-w-none bg-background p-0 text-foreground backdrop:bg-transparent md:hidden"
+>
+  <div class="flex h-full flex-col">
+    <div class="flex items-center justify-between border-b border-secondary px-4 py-3 sm:px-6">
+      <a href={homeHref} aria-label={t(locale, 'header.homeLabel')} class="flex items-center">
+        <Logo class="size-10 text-primary" />
+      </a>
+      <button
+        type="button"
+        class="icon-btn"
+        aria-label={t(locale, 'header.menuClose')}
+        commandfor="mobile-menu"
+        command="close"
+        data-menu-close
+      >
+        <svg viewBox="0 0 24 24" class="size-5.5" aria-hidden="true">
+          <path
+            d="M6 6l12 12M18 6L6 18"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+          ></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="flex flex-1 flex-col gap-8 overflow-y-auto px-4 py-8 sm:px-6">
+      {nav.length > 0 && (
+        <nav aria-label={t(locale, 'header.navLabel')} class="flex flex-col gap-2">
+          {nav.map((item) => (
+            <a href={item.href} class="nav-link py-3 text-base">
+              {item.label}
+            </a>
+          ))}
+        </nav>
+      )}
+      <LangSwitch class="self-start py-3 text-base" />
+      <CtaLink class="w-full py-3" />
+    </div>
+  </div>
+</dialog>
+
+<script>
+  // The dialog opens and closes with native invoker commands (commandfor) where supported;
+  // this script adds the fallback, keeps aria-expanded in sync and closes on in-page links.
+  const dialog = document.querySelector<HTMLDialogElement>('#mobile-menu');
+  const openButton = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeButton = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  if (dialog && openButton && closeButton) {
+    if (!('command' in HTMLButtonElement.prototype)) {
+      openButton.addEventListener('click', () => dialog.showModal());
+      closeButton.addEventListener('click', () => dialog.close());
+    }
+    dialog.addEventListener('toggle', () => {
+      openButton.setAttribute('aria-expanded', String(dialog.open));
+    });
+    dialog.addEventListener('click', (event) => {
+      if (event.target instanceof Element && event.target.closest('a')) dialog.close();
+    });
+    window.matchMedia('(min-width: 48rem)').addEventListener('change', (event) => {
+      if (event.matches) dialog.close();
+    });
+  }
+</script>
