@@ -1,1 +1,110 @@
 @import 'tailwindcss';
+
+/* Only the latin subset: covers Spanish and English and keeps fonts under budget. */
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/inter/files/inter-latin-wght-normal.woff2')
+    format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Inter Tight Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('@fontsource-variable/inter-tight/files/inter-tight-latin-wght-normal.woff2')
+    format('woff2-variations');
+}
+
+/*
+ * Visual identity v2 tokens (harness: docs/conventions/identidad-visual.md).
+ * This is the only place where raw colour, font and radius values may live.
+ */
+@theme {
+  --color-*: initial;
+  --color-transparent: transparent;
+  --color-current: currentColor;
+
+  --color-background: #121212;
+  --color-foreground: #fafafa;
+  --color-card: #1e1e20;
+  --color-secondary: #27272a;
+  --color-section-alt: #18181a;
+  --color-footer: #0d0d0e;
+  --color-border: #313136;
+  --color-muted-foreground: #a1a1aa;
+  --color-primary: #f5d216;
+  --color-primary-foreground: #1a1a1a;
+  --color-whatsapp: #25d366;
+  --color-white: #ffffff;
+
+  --color-gradient-from: #facc15;
+  --color-gradient-via: #eab308;
+  --color-gradient-to: #f97316;
+
+  --font-sans: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Inter Tight Variable', 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-control: 0.5rem;
+  --radius-card: 1rem;
+
+  --tracking-display: -0.03em;
+  --tracking-eyebrow: 0.12em;
+}
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-display tracking-display;
+  }
+
+  :focus-visible {
+    @apply rounded-control outline-2 outline-offset-3 outline-primary;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+@utility gradient-text {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-gradient-from),
+    var(--color-gradient-via) 45%,
+    var(--color-gradient-to)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+@utility glass-card {
+  @apply rounded-card border border-border bg-card;
+}
+
+@utility btn-primary {
+  @apply inline-flex min-h-11 items-center justify-center gap-2.5 rounded-control bg-primary px-5 font-semibold text-primary-foreground transition-colors hover:bg-primary/90;
+}
