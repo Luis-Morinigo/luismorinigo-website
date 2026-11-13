@@ -17,6 +17,14 @@ export default defineConfig({
         access: 'public',
         optional: true,
       }),
+      PUBLIC_LINKEDIN_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_GITHUB_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_X_URL: envField.string({ context: 'client', access: 'public', optional: true }),
+      PUBLIC_INSTAGRAM_URL: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+      }),
     },
   },
   vite: {

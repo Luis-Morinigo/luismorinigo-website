@@ -11,5 +11,11 @@
   "whatsapp.message": "Hola Luis, quiero conversar sobre mi negocio",
   "header.menuOpen": "Abrir menú",
   "header.menuClose": "Cerrar menú",
-  "header.menuTitle": "Menú"
+  "header.menuTitle": "Menú",
+  "footer.follow": "Sígueme",
+  "footer.contact": "Contacto",
+  "footer.contactLead": "¿Listo para empezar?",
+  "footer.rights": "Todos los derechos reservados.",
+  "footer.mission": "Construido con la misión de potenciar a otros.",
+  "footer.homeLabel": "Luis Morinigo, ir al inicio"
 }
