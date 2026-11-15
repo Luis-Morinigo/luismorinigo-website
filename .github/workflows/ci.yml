@@ -18,6 +18,7 @@ jobs:
       # Builds for main (pushes and PRs into it) fail on draft content (principle 2).
       PUBLIC_ENV: ${{ (github.ref == 'refs/heads/main' || github.base_ref == 'main') && 'production' || 'development' }}
       PUBLIC_WHATSAPP_NUMBER: ${{ vars.PUBLIC_WHATSAPP_NUMBER }}
+      PUBLIC_WEB3FORMS_KEY: ${{ vars.PUBLIC_WEB3FORMS_KEY }}
       PUBLIC_LINKEDIN_URL: ${{ vars.PUBLIC_LINKEDIN_URL }}
       PUBLIC_GITHUB_URL: ${{ vars.PUBLIC_GITHUB_URL }}
       PUBLIC_X_URL: ${{ vars.PUBLIC_X_URL }}

@@ -15,6 +15,15 @@ export const localizedCollections = ['home', 'testimonials', 'projects'] as cons
 
 const methodologyIcons = ['recycle', 'zap', 'combine'] as const;
 const serviceIcons = ['briefcase', 'code', 'trending-up', 'users'] as const;
+/** Home sections the chatbot can link to. */
+export const homeSections = [
+  'sobre-mi',
+  'metodologia',
+  'servicios',
+  'testimonios',
+  'proyectos',
+  'contacto',
+] as const;
 
 /** Section heading: the highlight is the key phrase rendered with the gradient, after the title. */
 const heading = z.object({
@@ -76,6 +85,23 @@ const home = defineCollection({
         }),
         testimonials: heading,
         projects: heading,
+        contact: heading.extend({
+          /** Options of the "services of interest" checkboxes. */
+          services: z.array(z.string().min(1)).min(1),
+        }),
+        chatbot: z.object({
+          greeting: z.string().min(1),
+          replies: z
+            .array(
+              z.object({
+                label: z.string().min(1),
+                answer: z.string().min(1),
+                section: z.enum(homeSections),
+                linkLabel: z.string().min(1),
+              }),
+            )
+            .min(1),
+        }),
       })
       // The photo placeholder only exists while the entry is a draft (principle 2).
       .refine((data) => data.draft || data.about.photo !== undefined, {

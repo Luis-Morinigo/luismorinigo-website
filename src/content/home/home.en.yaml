@@ -72,3 +72,25 @@ projects:
   title: Projects and
   highlight: Solutions
   lead: Examples of how I transform business management.
+
+contact:
+  title: Ready to
+  highlight: scale your business?
+  lead: Tell me about your project. The first step to a great transformation is a good conversation.
+  services: [Finance, Software development, Process optimization, Training and development]
+
+chatbot:
+  greeting: Hi! I'm Luis's virtual assistant. How can I help you?
+  replies:
+    - label: Services
+      answer: Luis offers consulting in Corporate Finance, Custom Software Development, Process Optimization and Training.
+      section: servicios
+      linkLabel: See the services
+    - label: Projects
+      answer: You can see some of the projects and solutions in the Projects section.
+      section: proyectos
+      linkLabel: See the projects
+    - label: Contact
+      answer: You can write to Luis through the contact form or continue the conversation on WhatsApp.
+      section: contacto
+      linkLabel: Go to the form

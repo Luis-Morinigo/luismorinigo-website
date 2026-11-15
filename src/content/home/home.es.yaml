@@ -72,3 +72,25 @@ projects:
   title: Proyectos y
   highlight: Soluciones
   lead: Ejemplos de cómo transformo la gestión empresarial.
+
+contact:
+  title: ¿Listo para
+  highlight: escalar tu negocio?
+  lead: Cuéntame sobre tu proyecto. El primer paso para una gran transformación es una buena conversación.
+  services: [Finanzas, Desarrollo de software, Optimización de procesos, Capacitación y desarrollo]
+
+chatbot:
+  greeting: ¡Hola! Soy el asistente virtual de Luis. ¿Cómo puedo ayudarte?
+  replies:
+    - label: Servicios
+      answer: Luis ofrece consultoría en Finanzas Corporativas, Desarrollo de Software a medida, Optimización de Procesos y Capacitación.
+      section: servicios
+      linkLabel: Ver los servicios
+    - label: Proyectos
+      answer: Puedes ver algunos de los proyectos y soluciones en la sección Proyectos.
+      section: proyectos
+      linkLabel: Ver los proyectos
+    - label: Contacto
+      answer: Puedes escribirle a Luis desde el formulario de contacto o seguir la conversación por WhatsApp.
+      section: contacto
+      linkLabel: Ir al formulario
