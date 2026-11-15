@@ -2,6 +2,7 @@
 import '@/styles/global.css';
 import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
+import Chatbot from '@/components/Chatbot.astro';
 import WhatsAppButton from '@/components/WhatsAppButton.astro';
 import { defaultLocale, locales, localizedPath, t, toLocale } from '@/i18n';
 import { checkContent } from '@/lib/content';
@@ -72,7 +73,10 @@ const ogImageUrl = new URL(ogImage, site).href;
       <slot />
     </main>
     <Footer />
-    <WhatsAppButton />
+    <div class="fixed right-4 bottom-4 z-40 flex flex-col items-end gap-3 sm:right-6 sm:bottom-6">
+      <Chatbot />
+      <WhatsAppButton />
+    </div>
     <script>
       import '@/scripts/reveal';
     </script>

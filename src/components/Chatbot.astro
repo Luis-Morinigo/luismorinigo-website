@@ -1,0 +1,113 @@
+---
+import Icon from '@/components/Icon.astro';
+import { whatsappLink } from '@/config/site';
+import { localizedPath, t, toLocale } from '@/i18n';
+import { getHome } from '@/lib/content';
+
+const locale = toLocale(Astro.currentLocale);
+const { chatbot } = (await getHome(locale)).data;
+const whatsapp = whatsappLink(locale);
+---
+
+<!-- Only works with JavaScript: without it the button is not rendered. -->
+<button
+  type="button"
+  class="js-only group flex size-13 cursor-pointer items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg shadow-background/50 transition-transform motion-safe:hover:-translate-y-1 sm:size-14"
+  aria-label={t(locale, 'chatbot.open')}
+  aria-expanded="false"
+  aria-controls="chatbot"
+  data-chatbot-toggle
+  data-label-open={t(locale, 'chatbot.open')}
+  data-label-close={t(locale, 'chatbot.close')}
+>
+  <Icon name="message-square" class="size-6 group-aria-expanded:hidden" />
+  <Icon name="x" class="hidden size-6 group-aria-expanded:block" />
+</button>
+
+<!-- Desktop: 360 × 440 panel above the buttons. Phone: modal bottom sheet. -->
+<dialog
+  id="chatbot"
+  aria-labelledby="chatbot-title"
+  class="chatbot fixed inset-x-0 top-auto bottom-0 z-50 m-0 h-[min(40rem,85dvh)] max-h-none w-full max-w-none flex-col overflow-hidden rounded-t-card border border-border bg-card p-0 text-foreground shadow-2xl backdrop:bg-background/75 open:flex sm:right-6 sm:bottom-40 sm:left-auto sm:h-110 sm:max-h-[calc(100dvh-11rem)] sm:w-90 sm:rounded-card"
+>
+  <div class="flex justify-center pt-2 sm:hidden" aria-hidden="true">
+    <span class="h-1 w-10 rounded-full bg-border"></span>
+  </div>
+  <div class="flex items-center justify-between border-b border-border px-4 py-3">
+    <div class="flex items-center gap-2.5">
+      <span class="flex size-8.5 items-center justify-center rounded-full bg-primary/15 text-primary">
+        <Icon name="bot" class="size-4.5" />
+      </span>
+      <h2 id="chatbot-title" class="font-sans text-base font-bold tracking-normal">
+        {t(locale, 'chatbot.title')}
+      </h2>
+    </div>
+    <button
+      type="button"
+      class="icon-btn rounded-full bg-secondary"
+      aria-label={t(locale, 'chatbot.close')}
+      data-chatbot-close
+    >
+      <Icon name="x" class="size-4" />
+    </button>
+  </div>
+
+  <div
+    class="flex flex-1 flex-col gap-2.5 overflow-y-auto p-4 text-sm leading-snug"
+    role="log"
+    aria-live="polite"
+    data-chatbot-log
+  >
+    <p class="max-w-[82%] self-start rounded-card bg-secondary px-3.5 py-2.5">{chatbot.greeting}</p>
+  </div>
+
+  <div
+    class="flex flex-wrap gap-2 border-t border-border px-4 pt-3 pb-5"
+    role="group"
+    aria-label={t(locale, 'chatbot.replies')}
+  >
+    {chatbot.replies.map((reply) => (
+      <button
+        type="button"
+        class="min-h-10 cursor-pointer rounded-full border border-primary px-3.5 text-sm text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+        data-chatbot-reply
+        data-answer={reply.answer}
+        data-href={localizedPath(locale, `/#${reply.section}`)}
+        data-link-label={reply.linkLabel}
+      >
+        {reply.label}
+      </button>
+    ))}
+    {whatsapp && (
+      <a
+        href={whatsapp}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex min-h-10 items-center gap-1.5 rounded-full bg-whatsapp px-3.5 text-sm font-semibold text-primary-foreground"
+      >
+        <Icon name="whatsapp" class="size-4" />
+        {t(locale, 'chatbot.whatsapp')}
+        <span class="sr-only">{` ${t(locale, 'a11y.newTab')}`}</span>
+      </a>
+    )}
+  </div>
+</dialog>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .chatbot[open] {
+      animation: chatbot-in 0.25s ease-out;
+    }
+  }
+
+  @keyframes chatbot-in {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+  }
+</style>
+
+<script>
+  import '@/scripts/chatbot';
+</script>
