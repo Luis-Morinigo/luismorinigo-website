@@ -24,5 +24,14 @@
   "hero.play": "Reanudar mensajes",
   "placeholder.photo": "Foto de Luis",
   "placeholder.projectImage": "Captura del proyecto",
-  "placeholder.clientLogo": "Logo de cliente"
+  "placeholder.clientLogo": "Logo de cliente",
+  "testimonials.label": "Testimonios",
+  "testimonials.carousel": "carrusel",
+  "testimonials.slide": "testimonio",
+  "testimonials.of": "de",
+  "testimonials.prev": "Testimonio anterior",
+  "testimonials.next": "Testimonio siguiente",
+  "testimonials.goTo": "Ir al testimonio",
+  "testimonials.pause": "Pausar testimonios",
+  "testimonials.play": "Reanudar testimonios"
 }

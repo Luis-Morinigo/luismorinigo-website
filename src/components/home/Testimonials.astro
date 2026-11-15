@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import Icon from '@/components/Icon.astro';
+import PauseButton from '@/components/PauseButton.astro';
 import Section from '@/components/Section.astro';
 import SectionHeading from '@/components/SectionHeading.astro';
 import { t, toLocale } from '@/i18n';
@@ -56,40 +57,94 @@ const placeholders = clients.length === 0 ? 6 : 0;
     ))}
   </ul>
 
-  <div class="mx-auto max-w-230" data-carousel>
-    <div class="testimonial-slides flex flex-col gap-6" data-carousel-slides>
-      {testimonials.map(({ data: item }, i) => (
-        <figure
-          id={`testimonio-${i + 1}`}
-          class="testimonial-slide glass-card m-0 p-6 text-center md:p-11"
-          data-carousel-slide
-          data-active={i === 0 ? '' : undefined}
-        >
-          <Icon name="quote" class="mx-auto mb-3 size-9 text-primary" />
-          <blockquote class="mb-6 text-lead leading-normal text-foreground/90">
-            <p>{item.quote}</p>
-          </blockquote>
-          <figcaption class="flex items-center justify-center gap-3.5">
-            <span
-              class="flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-secondary font-display font-bold"
-              aria-hidden="true"
-            >
-              {initials(item.name)}
-            </span>
-            <span class="text-left">
-              <strong class="block">{item.name}</strong>
-              <span class="text-sm text-primary">{item.role}</span>
-            </span>
-          </figcaption>
-        </figure>
-      ))}
+  <div
+    class="mx-auto max-w-230"
+    role="region"
+    aria-roledescription={t(locale, 'testimonials.carousel')}
+    aria-label={t(locale, 'testimonials.label')}
+    data-carousel
+  >
+    <div class="grid grid-cols-2 items-center gap-4 sm:grid-cols-[auto_minmax(0,1fr)_auto]">
+      <div
+        class="testimonial-slides col-span-2 flex flex-col gap-6 sm:col-span-1 sm:col-start-2 sm:row-start-1"
+        data-carousel-slides
+      >
+        {testimonials.map(({ data: item }, i) => (
+          <figure
+            id={`testimonio-${i + 1}`}
+            class="testimonial-slide glass-card m-0 p-6 text-center md:p-11"
+            role="group"
+            aria-roledescription={t(locale, 'testimonials.slide')}
+            aria-label={`${i + 1} ${t(locale, 'testimonials.of')} ${testimonials.length}`}
+            data-carousel-slide
+            data-active={i === 0 ? '' : undefined}
+          >
+            <Icon name="quote" class="mx-auto mb-3 size-9 text-primary" />
+            <blockquote class="mb-6 text-lead leading-normal text-foreground/90">
+              <p>{item.quote}</p>
+            </blockquote>
+            <figcaption class="flex items-center justify-center gap-3.5">
+              <span
+                class="flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-secondary font-display font-bold"
+                aria-hidden="true"
+              >
+                {initials(item.name)}
+              </span>
+              <span class="text-left">
+                <strong class="block">{item.name}</strong>
+                <span class="text-sm text-primary">{item.role}</span>
+              </span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <!-- Controls only work with JavaScript; without it they are not rendered. -->
+      <button
+        type="button"
+        class="js-only icon-btn justify-self-start rounded-full bg-secondary sm:col-start-1 sm:row-start-1"
+        aria-label={t(locale, 'testimonials.prev')}
+        data-carousel-prev
+      >
+        <Icon name="chevron-left" class="size-5" />
+      </button>
+      <button
+        type="button"
+        class="js-only icon-btn justify-self-end rounded-full bg-secondary sm:col-start-3 sm:row-start-1"
+        aria-label={t(locale, 'testimonials.next')}
+        data-carousel-next
+      >
+        <Icon name="chevron-right" class="size-5" />
+      </button>
+    </div>
+
+    <div class="js-only mt-5 flex items-center justify-center gap-3">
+      <div class="flex">
+        {testimonials.map((_, i) => (
+          <button
+            type="button"
+            class="group flex h-6 cursor-pointer items-center px-1"
+            aria-label={`${t(locale, 'testimonials.goTo')} ${i + 1}`}
+            aria-controls={`testimonio-${i + 1}`}
+            aria-current={i === 0 ? 'true' : undefined}
+            data-carousel-dot
+          >
+            <span class="block h-2 w-2 rounded-full bg-muted-foreground/60 transition-[width,background-color] duration-300 group-hover:bg-muted-foreground group-aria-[current=true]:w-7 group-aria-[current=true]:bg-primary" />
+          </button>
+        ))}
+      </div>
+      <PauseButton
+        pauseLabel={t(locale, 'testimonials.pause')}
+        playLabel={t(locale, 'testimonials.play')}
+      />
     </div>
   </div>
 </Section>
 
 <style>
-  /* With JavaScript the testimonials share one slot and only the active one is
-     shown; without it, all of them are read one after the other. */
+  /* With JavaScript the testimonials share one slot (the tallest sets the
+     height) and only the active one is shown; without it, all of them are
+     read one after the other. */
   :global(.js) .testimonial-slides {
     display: grid;
   }
@@ -113,3 +168,7 @@ const placeholders = clients.length === 0 ? 6 : 0;
     }
   }
 </style>
+
+<script>
+  import '@/scripts/carousel';
+</script>

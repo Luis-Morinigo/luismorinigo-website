@@ -24,5 +24,14 @@
   "hero.play": "Resume messages",
   "placeholder.photo": "Photo of Luis",
   "placeholder.projectImage": "Project screenshot",
-  "placeholder.clientLogo": "Client logo"
+  "placeholder.clientLogo": "Client logo",
+  "testimonials.label": "Testimonials",
+  "testimonials.carousel": "carousel",
+  "testimonials.slide": "testimonial",
+  "testimonials.of": "of",
+  "testimonials.prev": "Previous testimonial",
+  "testimonials.next": "Next testimonial",
+  "testimonials.goTo": "Go to testimonial",
+  "testimonials.pause": "Pause testimonials",
+  "testimonials.play": "Resume testimonials"
 }
