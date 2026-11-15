@@ -1,0 +1,22 @@
+---
+interface Props {
+  /** Anchor used by the navigation. */
+  id: string;
+  /** Id of the section heading, for aria-labelledby. */
+  labelledby: string;
+  /** Alternate background with top and bottom borders. */
+  alt?: boolean;
+}
+
+const { id, labelledby, alt = false } = Astro.props;
+---
+
+<section
+  id={id}
+  aria-labelledby={labelledby}
+  class:list={[alt && 'border-y border-secondary bg-section-alt']}
+>
+  <div class="mx-auto max-w-310 px-4 py-18 sm:px-6 md:py-24 lg:px-10 lg:py-28" data-reveal>
+    <slot />
+  </div>
+</section>

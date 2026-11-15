@@ -38,6 +38,9 @@ const ogImageUrl = new URL(ogImage, site).href;
 <html lang={locale}>
   <head>
     <meta charset="utf-8" />
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -66,5 +69,8 @@ const ogImageUrl = new URL(ogImage, site).href;
     </main>
     <Footer />
     <WhatsAppButton />
+    <script>
+      import '@/scripts/reveal';
+    </script>
   </body>
 </html>

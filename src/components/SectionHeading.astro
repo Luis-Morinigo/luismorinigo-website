@@ -1,0 +1,20 @@
+---
+interface Props {
+  /** Id of the h2, referenced by the section's aria-labelledby. */
+  id: string;
+  title: string;
+  /** Key phrase, shown after the title with the brand gradient. */
+  highlight: string;
+  lead: string;
+  class?: string;
+}
+
+const { id, title, highlight, lead, class: className } = Astro.props;
+---
+
+<div class:list={['mb-12 text-center md:mb-14', className]}>
+  <h2 id={id} class="mb-2.5 text-section leading-tight font-extrabold text-balance">
+    {title} <span class="gradient-text">{highlight}</span>
+  </h2>
+  <p class="mx-auto max-w-2xl text-muted-foreground">{lead}</p>
+</div>

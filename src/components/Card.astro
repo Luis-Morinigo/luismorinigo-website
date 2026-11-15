@@ -1,0 +1,17 @@
+---
+interface Props {
+  /** Rendered element: an article for standalone items, a div otherwise. */
+  as?: 'article' | 'div' | 'figure';
+  /** Lifts and highlights the border on hover (no movement with reduced motion). */
+  hover?: boolean;
+  /** Highlighted border, for the featured item of a group. */
+  featured?: boolean;
+  class?: string;
+}
+
+const { as: Tag = 'article', hover = false, featured = false, class: className } = Astro.props;
+---
+
+<Tag class:list={['glass-card', hover && 'card-hover', featured && 'border-primary/45', className]}>
+  <slot />
+</Tag>
