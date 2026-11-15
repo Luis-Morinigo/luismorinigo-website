@@ -1,0 +1,10 @@
+---
+import Hero from '@/components/home/Hero.astro';
+import { toLocale } from '@/i18n';
+import { getHome } from '@/lib/content';
+
+const locale = toLocale(Astro.currentLocale);
+const home = (await getHome(locale)).data;
+---
+
+<Hero home={home} />

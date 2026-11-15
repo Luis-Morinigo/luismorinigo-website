@@ -1,0 +1,78 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import CtaLink from '@/components/CtaLink.astro';
+import HeroFacets from '@/components/home/HeroFacets.astro';
+
+interface Props {
+  home: CollectionEntry<'home'>['data'];
+}
+
+const { home } = Astro.props;
+const { slides, secondaryCta } = home.hero;
+---
+
+<section id="hero" class="relative overflow-hidden border-b border-secondary" data-hero>
+  <h1 class="sr-only">{home.title}</h1>
+
+  <div class="mx-auto grid max-w-310 items-center gap-8 px-4 pt-9 pb-10 sm:px-6 md:pt-16 lg:grid-cols-[minmax(0,1.45fr)_minmax(0,1fr)] lg:gap-10 lg:px-10 lg:pt-28">
+    <HeroFacets class="mx-auto w-38 sm:w-52 lg:order-last lg:w-full lg:max-w-110" />
+
+    <div class="min-w-0">
+      <div class="hero-panels flex flex-col gap-12" data-hero-panels>
+        {slides.map((slide, i) => (
+          <div
+            id={`hero-panel-${i}`}
+            class="hero-panel"
+            data-hero-panel
+            data-active={i === 0 ? '' : undefined}
+          >
+            <p class="mb-3.5 text-eyebrow font-bold tracking-eyebrow text-primary uppercase md:mb-4.5">
+              {slide.eyebrow}
+            </p>
+            <h2 class="mb-4 text-hero font-extrabold text-balance md:mb-5.5">
+              {slide.title} <span class="gradient-text">{slide.highlight}</span>
+            </h2>
+            <p class="max-w-xl text-lead text-muted-foreground">{slide.description}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <CtaLink size="hero" />
+        <a href="#metodologia" class="btn-ghost min-h-13.5 px-6 text-base tracking-wider uppercase">
+          {secondaryCta}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <slot />
+</section>
+
+<style>
+  /* With JavaScript the messages share one slot (the tallest sets the height,
+     so nothing jumps) and only the active one is shown. Without it, all three
+     are read one after the other. */
+  :global(.js) .hero-panels {
+    display: grid;
+  }
+  :global(.js) .hero-panel {
+    grid-area: 1 / 1;
+  }
+  :global(.js) .hero-panel:not([data-active]) {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .hero-panel[data-active] {
+      animation: hero-panel-in 0.6s ease-out both;
+    }
+  }
+
+  @keyframes hero-panel-in {
+    from {
+      opacity: 0;
+      translate: 0 1rem;
+    }
+  }
+</style>

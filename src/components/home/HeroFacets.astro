@@ -1,0 +1,85 @@
+---
+import logo from '@/assets/logo.svg?raw';
+
+interface Props {
+  class?: string;
+}
+
+const { class: className } = Astro.props;
+
+// The four pieces of the logo, in the order they appear in logo.svg.
+const paths = [...logo.matchAll(/<path\b[^>]*\bd="([^"]+)"/g)].map((m) => m[1]);
+if (paths.length !== 4) throw new Error(`logo.svg must have 4 paths, found ${paths.length}`);
+
+const facets = [
+  { d: paths[0], class: 'facet facet-1 fill-primary' },
+  { d: paths[1], class: 'facet facet-2 fill-primary/85' },
+  { d: paths[2], class: 'facet facet-3 fill-gradient-to/90' },
+  { d: paths[3], class: 'facet facet-4 fill-gradient-from' },
+];
+---
+
+<div class:list={['relative aspect-square', className]} aria-hidden="true">
+  <div class="absolute inset-[8%] rounded-full border border-secondary"></div>
+  <div class="absolute inset-[22%] rounded-full border border-dashed border-secondary"></div>
+  <svg viewBox="-20 -20 552 552" class="absolute inset-0 size-full overflow-visible">
+    {facets.map((f) => (
+      <path d={f.d} class={f.class} />
+    ))}
+  </svg>
+</div>
+
+<style>
+  /* The pieces of the logo come together on load: staggered translate and fade, 1 s. */
+  .facet {
+    animation: 1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  }
+  .facet-1 {
+    animation-name: facet-1;
+    animation-delay: 0.1s;
+  }
+  .facet-2 {
+    animation-name: facet-2;
+    animation-delay: 0.25s;
+  }
+  .facet-3 {
+    animation-name: facet-3;
+    animation-delay: 0.4s;
+  }
+  .facet-4 {
+    animation-name: facet-4;
+    animation-delay: 0.55s;
+  }
+
+  @keyframes facet-1 {
+    from {
+      opacity: 0;
+      translate: -60px -40px;
+    }
+  }
+  @keyframes facet-2 {
+    from {
+      opacity: 0;
+      translate: -70px 20px;
+    }
+  }
+  @keyframes facet-3 {
+    from {
+      opacity: 0;
+      translate: 60px 30px;
+    }
+  }
+  @keyframes facet-4 {
+    from {
+      opacity: 0;
+      translate: 30px -60px;
+    }
+  }
+
+  /* Reduced motion: the logo is shown already assembled. */
+  @media (prefers-reduced-motion: reduce) {
+    .facet {
+      animation: none;
+    }
+  }
+</style>
