@@ -75,5 +75,9 @@
   "resources.minutes": "min read",
   "category.finanzas": "Finance",
   "category.procesos": "Processes",
-  "category.desarrollo": "Development"
+  "category.desarrollo": "Development",
+  "resources.back": "Back to Resources",
+  "resources.downloadTitle": "Downloadable resource",
+  "resources.download": "Download",
+  "resources.others": "Other articles"
 }

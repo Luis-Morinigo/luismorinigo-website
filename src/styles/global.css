@@ -168,6 +168,39 @@ html:not(.js) .js-only {
   display: none !important;
 }
 
+/* Reading styles for the Markdown body of an article (Recursos). */
+@utility article-body {
+  @apply text-lg leading-relaxed text-foreground/85;
+
+  & > * + * {
+    @apply mt-5;
+  }
+  & h2 {
+    @apply mt-11 text-2xl leading-snug font-extrabold text-foreground;
+  }
+  & h3 {
+    @apply mt-8 text-xl font-bold text-foreground;
+  }
+  & ul {
+    @apply list-disc pl-6;
+  }
+  & ol {
+    @apply list-decimal pl-6;
+  }
+  & li + li {
+    @apply mt-2;
+  }
+  & li::marker {
+    @apply text-primary;
+  }
+  & strong {
+    @apply font-semibold text-foreground;
+  }
+  & a {
+    @apply text-primary underline underline-offset-4;
+  }
+}
+
 @utility social-link {
   @apply inline-flex size-11 items-center justify-center rounded-control border border-border text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-background;
 }

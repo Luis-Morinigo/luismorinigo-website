@@ -65,6 +65,11 @@ export const icons = {
     kind: 'stroke',
     body: '<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 14h.01M15 14h.01"/>',
   },
+  download: {
+    kind: 'stroke',
+    body: '<path d="M12 15V3"/><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="m7 10 5 5 5-5"/>',
+  },
+  'arrow-left': { kind: 'stroke', body: '<path d="M19 12H5"/><path d="m11 18-6-6 6-6"/>' },
   x: { kind: 'stroke', body: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>' },
 } as const satisfies Record<string, { kind: 'stroke' | 'fill'; body: string }>;
 
