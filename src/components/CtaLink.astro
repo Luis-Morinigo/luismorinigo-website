@@ -1,7 +1,6 @@
 ---
 import Icon from '@/components/Icon.astro';
-import { whatsappLink } from '@/config/site';
-import { t, toLocale } from '@/i18n';
+import { localizedPath, t, toLocale } from '@/i18n';
 
 interface Props {
   /** "hero": larger button with an arrow. */
@@ -11,23 +10,18 @@ interface Props {
 
 const { size = 'default', class: className } = Astro.props;
 const locale = toLocale(Astro.currentLocale);
-// Until the contact form exists, "Hablemos" opens WhatsApp. No number, no button.
-const href = whatsappLink(locale);
+// "Hablemos" leads to the contact section of the home, in the same tab.
+const href = localizedPath(locale, '/#contacto');
 ---
 
-{href && (
-  <a
-    href={href}
-    target="_blank"
-    rel="noopener noreferrer"
-    class:list={[
-      'btn-primary tracking-wider uppercase',
-      size === 'hero' ? 'min-h-13.5 px-6.5 text-base' : 'text-sm',
-      className,
-    ]}
-  >
-    {t(locale, 'header.cta')}
-    {size === 'hero' && <Icon name="arrow-right" class="size-4.5" />}
-    <span class="sr-only">{` ${t(locale, 'a11y.newTab')}`}</span>
-  </a>
-)}
+<a
+  href={href}
+  class:list={[
+    'btn-primary tracking-wider uppercase',
+    size === 'hero' ? 'min-h-13.5 px-6.5 text-base' : 'text-sm',
+    className,
+  ]}
+>
+  {t(locale, 'header.cta')}
+  {size === 'hero' && <Icon name="arrow-right" class="size-4.5" />}
+</a>

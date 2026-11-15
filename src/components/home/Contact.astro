@@ -1,0 +1,178 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Card from '@/components/Card.astro';
+import Icon from '@/components/Icon.astro';
+import { contactEmail, contactFormKey, whatsappLink } from '@/config/site';
+import { localizedPath, t, toLocale } from '@/i18n';
+
+interface Props {
+  home: CollectionEntry<'home'>['data'];
+}
+
+const { contact } = Astro.props.home;
+const locale = toLocale(Astro.currentLocale);
+const whatsapp = whatsappLink(locale);
+// Without JavaScript Web3Forms redirects here after sending. Same origin as the
+// page (localhost in dev, the site in the build): the free plan only allows that.
+const thanksUrl = new URL(localizedPath(locale, '/gracias/'), Astro.url).href;
+
+const fields = {
+  label: 'flex flex-col gap-1.5 text-sm font-semibold text-foreground/85',
+  error: 'hidden text-sm font-medium text-primary',
+};
+---
+
+<section
+  id="contacto"
+  aria-labelledby="contacto-title"
+  class="border-t border-secondary bg-section-alt"
+>
+  <div
+    class="mx-auto flex max-w-310 flex-wrap gap-12 px-4 py-18 sm:px-6 md:py-24 lg:px-10 lg:py-28"
+    data-reveal
+  >
+    <div class="min-w-0 flex-[1_1_21rem]">
+      <h2 id="contacto-title" class="mb-3.5 text-section leading-tight font-extrabold text-balance">
+        {contact.title} <span class="gradient-text">{contact.highlight}</span>
+      </h2>
+      <p class="mb-8 text-muted-foreground">{contact.lead}</p>
+
+      <h3 class="sr-only">{t(locale, 'contact.channels')}</h3>
+      <ul class="flex max-w-90 flex-col gap-3">
+        {whatsapp && (
+          <li>
+            <a
+              href={whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn-ghost min-h-13 w-full justify-start px-4.5"
+            >
+              <Icon name="whatsapp" class="size-5 text-whatsapp" />
+              WhatsApp
+              <span class="sr-only">{` ${t(locale, 'a11y.newTab')}`}</span>
+            </a>
+          </li>
+        )}
+        <li>
+          <a href={`mailto:${contactEmail}`} class="btn-ghost min-h-13 w-full justify-start px-4.5">
+            <Icon name="mail" class="size-5 text-primary" />
+            {contactEmail}
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    {contactFormKey && (
+      <Card as="div" class="min-w-0 flex-[1.4_1_30rem] p-6 md:p-9">
+        <form
+          action="https://api.web3forms.com/submit"
+          method="POST"
+          aria-label={t(locale, 'contact.formLabel')}
+          class="flex flex-col gap-4.5"
+          data-contact-form
+          data-msg-required={t(locale, 'contact.errorRequired')}
+          data-msg-email={t(locale, 'contact.errorEmail')}
+          data-msg-sending={t(locale, 'contact.sending')}
+          data-msg-success={t(locale, 'contact.success')}
+          data-msg-error={t(locale, 'contact.error')}
+        >
+          <input type="hidden" name="access_key" value={contactFormKey} />
+          <input
+            type="hidden"
+            name="subject"
+            value={`${t(locale, 'contact.subject')} (${locale})`}
+          />
+          <input type="hidden" name="from_name" value="luismorinigo.com" />
+          <input type="hidden" name="idioma" value={locale} />
+          <input type="hidden" name="redirect" value={thanksUrl} data-redirect />
+          {/* Honeypot: hidden from people; a bot that ticks it gets its message dropped. */}
+          <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
+
+          <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,12.5rem),1fr))] gap-4.5">
+            <label class={fields.label}>
+              {t(locale, 'contact.name')}
+              <input
+                class="field"
+                type="text"
+                name="name"
+                autocomplete="name"
+                required
+                placeholder={t(locale, 'contact.namePlaceholder')}
+                aria-describedby="contact-name-error"
+              />
+              <span id="contact-name-error" class={fields.error} data-error-for="name" />
+            </label>
+            <label class={fields.label}>
+              {t(locale, 'contact.email')}
+              <input
+                class="field"
+                type="email"
+                name="email"
+                autocomplete="email"
+                required
+                placeholder={t(locale, 'contact.emailPlaceholder')}
+                aria-describedby="contact-email-error"
+              />
+              <span id="contact-email-error" class={fields.error} data-error-for="email" />
+            </label>
+          </div>
+
+          <label class={fields.label}>
+            <span>
+              {t(locale, 'contact.phone')}{' '}
+              <span class="font-normal text-muted-foreground">{t(locale, 'contact.optional')}</span>
+            </span>
+            <input class="field" type="tel" name="telefono" autocomplete="tel" />
+          </label>
+
+          <fieldset class="m-0 border-0 p-0">
+            <legend class="mb-2.5 text-sm font-semibold text-foreground/85">
+              {t(locale, 'contact.services')}{' '}
+              <span class="font-normal text-muted-foreground">{t(locale, 'contact.optional')}</span>
+            </legend>
+            <div class="flex flex-wrap gap-2.5">
+              {contact.services.map((service) => (
+                <label class="inline-flex min-h-11 cursor-pointer items-center gap-2 rounded-full border border-border px-3.5 text-base text-foreground/85 transition-colors hover:border-primary has-checked:border-primary has-checked:bg-primary/10 has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary">
+                  <input
+                    type="checkbox"
+                    name="servicios"
+                    value={service}
+                    class="size-4 accent-primary focus-visible:outline-none"
+                  />
+                  {service}
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <label class={fields.label}>
+            {t(locale, 'contact.message')}
+            <textarea
+              class="field resize-y"
+              name="mensaje"
+              rows="5"
+              required
+              placeholder={t(locale, 'contact.messagePlaceholder')}
+              aria-describedby="contact-message-error"
+            />
+            <span id="contact-message-error" class={fields.error} data-error-for="mensaje" />
+          </label>
+
+          <button type="submit" class="btn-primary min-h-13.5 w-full text-base" data-submit>
+            {t(locale, 'contact.submit')}
+          </button>
+
+          <p
+            class="hidden rounded-card border border-primary bg-card p-4 text-foreground"
+            role="status"
+            data-status
+          />
+        </form>
+      </Card>
+    )}
+  </div>
+</section>
+
+<script>
+  import '@/scripts/contact-form';
+</script>

@@ -1,0 +1,19 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { localizedPath, t, toLocale } from '@/i18n';
+
+// Web3Forms sends visitors here after a submission without JavaScript.
+const locale = toLocale(Astro.currentLocale);
+---
+
+<BaseLayout title={t(locale, 'thanks.metaTitle')} noindex>
+  <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6 md:py-32">
+    <h1 class="mb-4 text-section leading-tight font-extrabold text-balance">
+      {t(locale, 'thanks.title')}
+    </h1>
+    <p class="mb-8 text-lead text-muted-foreground">{t(locale, 'thanks.text')}</p>
+    <a href={localizedPath(locale, '/')} class="btn-primary min-h-13 px-6 text-base">
+      {t(locale, 'thanks.back')}
+    </a>
+  </section>
+</BaseLayout>

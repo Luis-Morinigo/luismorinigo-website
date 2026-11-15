@@ -49,6 +49,23 @@ export const icons = {
     kind: 'fill',
     body: '<path d="M9.5 6C6 7 4 9.8 4 13.5V18h6v-6H7c0-2.2 1.2-3.7 3-4.3zM19.5 6C16 7 14 9.8 14 13.5V18h6v-6h-3c0-2.2 1.2-3.7 3-4.3z"/>',
   },
+  mail: {
+    kind: 'stroke',
+    body: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/>',
+  },
+  whatsapp: {
+    kind: 'fill',
+    body: '<path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M8.5 7.5c.3-.6.8-.6 1.1-.1l.8 1.6c.2.4 0 .8-.3 1.1l-.4.4c.6 1.3 1.7 2.4 3 3l.4-.4c.3-.3.7-.5 1.1-.3l1.6.8c.5.3.5.8-.1 1.1-1 .7-2.4.8-3.7.1A9 9 0 0 1 8.4 11c-.7-1.3-.6-2.6.1-3.5z"/>',
+  },
+  'message-square': {
+    kind: 'stroke',
+    body: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  },
+  bot: {
+    kind: 'stroke',
+    body: '<rect x="4" y="8" width="16" height="12" rx="3"/><path d="M12 4v4M9 14h.01M15 14h.01"/>',
+  },
+  x: { kind: 'stroke', body: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>' },
 } as const satisfies Record<string, { kind: 'stroke' | 'fill'; body: string }>;
 
 export type IconName = keyof typeof icons;

@@ -24,6 +24,13 @@ export default defineConfig({
         access: 'public',
         optional: true,
       }),
+      // Web3Forms access key: public by design (it only allows sending to the
+      // address registered with it). Empty hides the contact form.
+      PUBLIC_WEB3FORMS_KEY: envField.string({
+        context: 'client',
+        access: 'public',
+        optional: true,
+      }),
       PUBLIC_LINKEDIN_URL: envField.string({ context: 'client', access: 'public', optional: true }),
       PUBLIC_GITHUB_URL: envField.string({ context: 'client', access: 'public', optional: true }),
       PUBLIC_X_URL: envField.string({ context: 'client', access: 'public', optional: true }),

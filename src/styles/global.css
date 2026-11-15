@@ -125,6 +125,10 @@
   @apply inline-flex items-center justify-center gap-2.5 rounded-control border border-border bg-transparent font-semibold text-foreground transition-colors hover:border-primary;
 }
 
+@utility field {
+  @apply w-full rounded-control border border-border bg-secondary px-3.5 py-3 text-base text-foreground placeholder:text-muted-foreground aria-invalid:border-primary;
+}
+
 @utility nav-link {
   @apply border-b-2 border-transparent py-1.5 text-nav font-semibold tracking-nav text-muted-foreground uppercase transition-colors hover:border-primary hover:text-foreground;
 }
@@ -134,7 +138,7 @@
 }
 
 @layer base {
-  html:has(dialog[open]) {
+  html:has(dialog:modal) {
     overflow: hidden;
   }
 }
