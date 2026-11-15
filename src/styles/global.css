@@ -68,6 +68,8 @@
 @layer base {
   html {
     color-scheme: dark;
+    /* In-page links land below the sticky header instead of under it. */
+    scroll-padding-top: 4.5rem;
     -webkit-text-size-adjust: 100%;
   }
 

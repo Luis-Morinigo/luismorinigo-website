@@ -33,5 +33,9 @@
   "testimonials.next": "Next testimonial",
   "testimonials.goTo": "Go to testimonial",
   "testimonials.pause": "Pause testimonials",
-  "testimonials.play": "Resume testimonials"
+  "testimonials.play": "Resume testimonials",
+  "nav.about": "About",
+  "nav.services": "Services",
+  "nav.testimonials": "Testimonials",
+  "nav.projects": "Projects"
 }
