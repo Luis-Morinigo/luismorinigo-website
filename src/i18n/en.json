@@ -64,5 +64,16 @@
   "chatbot.close": "Close virtual assistant",
   "chatbot.title": "Virtual assistant",
   "chatbot.whatsapp": "Continue on WhatsApp",
-  "chatbot.replies": "Quick replies"
+  "chatbot.replies": "Quick replies",
+  "resources.metaTitle": "Resources — Luis Morinigo",
+  "resources.title": "Resource",
+  "resources.highlight": "Center",
+  "resources.lead": "Practical knowledge to transform your business: articles and guides on finance, processes and technology.",
+  "resources.filter": "Filter by category",
+  "resources.all": "All",
+  "resources.read": "Read article",
+  "resources.minutes": "min read",
+  "category.finanzas": "Finance",
+  "category.procesos": "Processes",
+  "category.desarrollo": "Development"
 }
