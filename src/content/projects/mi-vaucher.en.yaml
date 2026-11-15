@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 4
+title: Mi Vaucher
+description: SaaS for voucher entry, administrative control and customer accounts for inbound tourism agencies with street promoters.
+tags: [Django, React, PostgreSQL]

@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 1
+title: Sistema de Gestión para Ópticas
+description: Solución integral en desarrollo para administrar pacientes, inventario, ventas y reportes en la industria óptica.
+tags: [React, Supabase, Finanzas]

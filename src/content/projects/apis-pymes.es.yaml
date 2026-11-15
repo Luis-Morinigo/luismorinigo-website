@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 2
+title: APIs para Integración de Pymes
+description: Desarrollo de APIs personalizadas para conectar sistemas, automatizar flujos de trabajo y mejorar la eficiencia financiera.
+tags: [Node.js, API Rest, Automatización]

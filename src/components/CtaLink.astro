@@ -1,12 +1,15 @@
 ---
+import Icon from '@/components/Icon.astro';
 import { whatsappLink } from '@/config/site';
 import { t, toLocale } from '@/i18n';
 
 interface Props {
+  /** "hero": larger button with an arrow. */
+  size?: 'default' | 'hero';
   class?: string;
 }
 
-const { class: className } = Astro.props;
+const { size = 'default', class: className } = Astro.props;
 const locale = toLocale(Astro.currentLocale);
 // Until the contact form exists, "Hablemos" opens WhatsApp. No number, no button.
 const href = whatsappLink(locale);
@@ -17,9 +20,14 @@ const href = whatsappLink(locale);
     href={href}
     target="_blank"
     rel="noopener noreferrer"
-    class:list={['btn-primary text-sm tracking-wider uppercase', className]}
+    class:list={[
+      'btn-primary tracking-wider uppercase',
+      size === 'hero' ? 'min-h-13.5 px-6.5 text-base' : 'text-sm',
+      className,
+    ]}
   >
     {t(locale, 'header.cta')}
+    {size === 'hero' && <Icon name="arrow-right" class="size-4.5" />}
     <span class="sr-only">{` ${t(locale, 'a11y.newTab')}`}</span>
   </a>
 )}

@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 3
+title: Automatización de Procesos (RPA)
+description: Implementación de robots de software y macros para eliminar tareas repetitivas en áreas de finanzas y contabilidad.
+tags: [RPA, Excel Macros, SAP Scripts]

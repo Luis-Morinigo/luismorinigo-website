@@ -1,0 +1,28 @@
+---
+import Icon from '@/components/Icon.astro';
+
+interface Props {
+  /** Accessible name while playing ("Pause …"). */
+  pauseLabel: string;
+  /** Accessible name while paused by the user ("Resume …"). */
+  playLabel: string;
+  class?: string;
+}
+
+const { pauseLabel, playLabel, class: className } = Astro.props;
+---
+
+<!-- Pause for content that advances on its own (WCAG 2.2.2). Hidden with
+     reduced motion, where nothing advances, so it never does nothing. -->
+<button
+  type="button"
+  class:list={['group icon-btn shrink-0 motion-reduce:hidden', className]}
+  aria-label={pauseLabel}
+  data-pause-button
+  data-pause-label={pauseLabel}
+  data-play-label={playLabel}
+  data-state="playing"
+>
+  <Icon name="pause" class="size-4 group-data-[state=paused]:hidden" />
+  <Icon name="play" class="hidden size-4 group-data-[state=paused]:block" />
+</button>

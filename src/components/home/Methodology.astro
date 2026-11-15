@@ -1,0 +1,41 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Card from '@/components/Card.astro';
+import Icon from '@/components/Icon.astro';
+import Section from '@/components/Section.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+
+interface Props {
+  home: CollectionEntry<'home'>['data'];
+}
+
+const { methodology } = Astro.props.home;
+---
+
+<Section id="metodologia" labelledby="metodologia-title" alt>
+  <SectionHeading
+    id="metodologia-title"
+    title={methodology.title}
+    highlight={methodology.highlight}
+    lead={methodology.lead}
+  />
+
+  <div class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,17.5rem),1fr))] gap-6">
+    {methodology.items.map((item) => (
+      <Card hover featured={item.featured} class="p-7 md:p-8">
+        <div
+          class:list={[
+            'mb-5 flex size-13 items-center justify-center rounded-control',
+            item.featured ? 'bg-primary text-primary-foreground' : 'bg-primary/10 text-primary',
+          ]}
+        >
+          <Icon name={item.icon} class="size-6.5" />
+        </div>
+        <h3 class="mb-2.5 text-2xl font-extrabold">{item.title}</h3>
+        <p class:list={['m-0', item.featured ? 'text-foreground/85' : 'text-muted-foreground']}>
+          {item.text}
+        </p>
+      </Card>
+    ))}
+  </div>
+</Section>

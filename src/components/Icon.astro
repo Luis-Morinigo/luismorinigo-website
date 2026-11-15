@@ -1,0 +1,24 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { icons, type IconName } from '@/lib/icons';
+
+interface Props {
+  name: IconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const icon = icons[name];
+const paint: HTMLAttributes<'svg'> =
+  icon.kind === 'stroke'
+    ? {
+        fill: 'none',
+        stroke: 'currentColor',
+        'stroke-width': 2,
+        'stroke-linecap': 'round',
+        'stroke-linejoin': 'round',
+      }
+    : { fill: 'currentColor' };
+---
+
+<svg viewBox="0 0 24 24" aria-hidden="true" class={className} {...paint} set:html={icon.body} />
