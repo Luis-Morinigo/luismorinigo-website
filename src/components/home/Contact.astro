@@ -70,6 +70,11 @@ const fields = {
           aria-label={t(locale, 'contact.formLabel')}
           class="flex flex-col gap-4.5"
           data-contact-form
+          data-msg-required={t(locale, 'contact.errorRequired')}
+          data-msg-email={t(locale, 'contact.errorEmail')}
+          data-msg-sending={t(locale, 'contact.sending')}
+          data-msg-success={t(locale, 'contact.success')}
+          data-msg-error={t(locale, 'contact.error')}
         >
           <input type="hidden" name="access_key" value={contactFormKey} />
           <input
@@ -167,3 +172,7 @@ const fields = {
     )}
   </div>
 </section>
+
+<script>
+  import '@/scripts/contact-form';
+</script>
