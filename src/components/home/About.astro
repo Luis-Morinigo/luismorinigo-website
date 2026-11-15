@@ -1,0 +1,76 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Card from '@/components/Card.astro';
+import Section from '@/components/Section.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { t, toLocale } from '@/i18n';
+import { parseEmphasis } from '@/lib/emphasis';
+
+interface Props {
+  home: CollectionEntry<'home'>['data'];
+}
+
+const { about } = Astro.props.home;
+const locale = toLocale(Astro.currentLocale);
+---
+
+<Section id="sobre-mi" labelledby="sobre-mi-title">
+  <SectionHeading
+    id="sobre-mi-title"
+    title={about.title}
+    highlight={about.highlight}
+    lead={about.lead}
+  />
+
+  <div class="flex flex-wrap items-center gap-12">
+    <div class="flex min-w-0 flex-[1_1_18rem] justify-center">
+      <div class="relative aspect-4/5 w-full max-w-80">
+        <div
+          class="absolute top-3.5 -right-3.5 -bottom-3.5 left-3.5 rounded-card border-2 border-primary"
+          aria-hidden="true"
+        ></div>
+        {about.photo ? (
+          <Image
+            src={about.photo}
+            alt={about.photoAlt}
+            widths={[320, 640]}
+            sizes="20rem"
+            class="relative size-full rounded-card border border-border object-cover"
+          />
+        ) : (
+          // Placeholder only while the entry is a draft: the schema requires the photo to publish.
+          <div
+            class="relative flex size-full items-center justify-center rounded-card border border-border bg-secondary p-5 text-center text-sm text-muted-foreground"
+            aria-hidden="true"
+          >
+            [{t(locale, 'placeholder.photo')}]
+          </div>
+        )}
+      </div>
+    </div>
+
+    <Card class="min-w-0 flex-[2_1_30rem] p-6 md:p-10">
+      {about.paragraphs.map((paragraph) => (
+        <p class="mb-4.5 text-lg leading-relaxed text-foreground/85">
+          {parseEmphasis(paragraph).map((segment) =>
+            segment.strong ? (
+              <strong class="font-semibold text-foreground">{segment.text}</strong>
+            ) : (
+              segment.text
+            ),
+          )}
+        </p>
+      ))}
+      {about.companies.length > 0 && (
+        <ul class="mt-7 flex flex-wrap gap-x-7 gap-y-2.5 border-t border-border pt-5.5">
+          {about.companies.map((company) => (
+            <li class="font-display text-xl font-extrabold tracking-display text-muted-foreground">
+              {company}
+            </li>
+          ))}
+        </ul>
+      )}
+    </Card>
+  </div>
+</Section>
