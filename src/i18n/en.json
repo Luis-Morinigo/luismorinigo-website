@@ -22,5 +22,6 @@
   "hero.tablistLabel": "Featured messages",
   "hero.pause": "Pause messages",
   "hero.play": "Resume messages",
-  "placeholder.photo": "Photo of Luis"
+  "placeholder.photo": "Photo of Luis",
+  "placeholder.projectImage": "Project screenshot"
 }
