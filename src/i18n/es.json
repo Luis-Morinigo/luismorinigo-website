@@ -23,5 +23,6 @@
   "hero.pause": "Pausar mensajes",
   "hero.play": "Reanudar mensajes",
   "placeholder.photo": "Foto de Luis",
-  "placeholder.projectImage": "Captura del proyecto"
+  "placeholder.projectImage": "Captura del proyecto",
+  "placeholder.clientLogo": "Logo de cliente"
 }

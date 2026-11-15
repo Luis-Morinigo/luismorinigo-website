@@ -4,6 +4,7 @@ import Hero from '@/components/home/Hero.astro';
 import Methodology from '@/components/home/Methodology.astro';
 import Projects from '@/components/home/Projects.astro';
 import Services from '@/components/home/Services.astro';
+import Testimonials from '@/components/home/Testimonials.astro';
 import { toLocale } from '@/i18n';
 import { getHome } from '@/lib/content';
 
@@ -15,4 +16,5 @@ const home = (await getHome(locale)).data;
 <About home={home} />
 <Methodology home={home} />
 <Services home={home} />
+<Testimonials home={home} />
 <Projects home={home} />

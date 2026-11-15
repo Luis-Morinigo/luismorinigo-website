@@ -6,13 +6,14 @@ interface Props {
   /** Key phrase, shown after the title with the brand gradient. */
   highlight: string;
   lead: string;
-  class?: string;
+  /** Less space below, when the section has more content before its cards. */
+  compact?: boolean;
 }
 
-const { id, title, highlight, lead, class: className } = Astro.props;
+const { id, title, highlight, lead, compact = false } = Astro.props;
 ---
 
-<div class:list={['mb-12 text-center md:mb-14', className]}>
+<div class:list={['text-center', compact ? 'mb-9' : 'mb-12 md:mb-14']}>
   <h2 id={id} class="mb-2.5 text-section leading-tight font-extrabold text-balance">
     {title} <span class="gradient-text">{highlight}</span>
   </h2>

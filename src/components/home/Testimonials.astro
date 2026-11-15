@@ -1,0 +1,115 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+import Icon from '@/components/Icon.astro';
+import Section from '@/components/Section.astro';
+import SectionHeading from '@/components/SectionHeading.astro';
+import { t, toLocale } from '@/i18n';
+import { getClients, getTestimonials } from '@/lib/content';
+import { initials } from '@/lib/initials';
+
+interface Props {
+  home: CollectionEntry<'home'>['data'];
+}
+
+const { home } = Astro.props;
+const heading = home.testimonials;
+const locale = toLocale(Astro.currentLocale);
+const clients = await getClients();
+const testimonials = await getTestimonials(locale);
+
+// Client placeholders only while the home is a draft (principle 2): once it is
+// published, the strip needs the real logos in src/content/clients/.
+if (clients.length === 0 && !home.draft) {
+  throw new Error('No client logos in src/content/clients/: add the real ones before publishing.');
+}
+const placeholders = clients.length === 0 ? 6 : 0;
+---
+
+<Section id="testimonios" labelledby="testimonios-title" alt>
+  <SectionHeading
+    id="testimonios-title"
+    title={heading.title}
+    highlight={heading.highlight}
+    lead={heading.lead}
+    compact
+  />
+
+  <ul class="mb-14 grid grid-cols-[repeat(auto-fit,minmax(min(100%,9.5rem),1fr))] gap-3">
+    {clients.map(({ data: client }) => (
+      <li class="flex h-18 items-center justify-center rounded-card border border-border px-4">
+        <Image
+          src={client.logo}
+          alt={client.name}
+          height={40}
+          class="max-h-10 w-auto object-contain"
+        />
+      </li>
+    ))}
+    {Array.from({ length: placeholders }, () => (
+      <li
+        class="flex h-18 items-center justify-center rounded-card border border-dashed border-border text-xs text-muted-foreground"
+        aria-hidden="true"
+      >
+        [{t(locale, 'placeholder.clientLogo')}]
+      </li>
+    ))}
+  </ul>
+
+  <div class="mx-auto max-w-230" data-carousel>
+    <div class="testimonial-slides flex flex-col gap-6" data-carousel-slides>
+      {testimonials.map(({ data: item }, i) => (
+        <figure
+          id={`testimonio-${i + 1}`}
+          class="testimonial-slide glass-card m-0 p-6 text-center md:p-11"
+          data-carousel-slide
+          data-active={i === 0 ? '' : undefined}
+        >
+          <Icon name="quote" class="mx-auto mb-3 size-9 text-primary" />
+          <blockquote class="mb-6 text-lead leading-normal text-foreground/90">
+            <p>{item.quote}</p>
+          </blockquote>
+          <figcaption class="flex items-center justify-center gap-3.5">
+            <span
+              class="flex size-12 shrink-0 items-center justify-center rounded-full border-2 border-primary bg-secondary font-display font-bold"
+              aria-hidden="true"
+            >
+              {initials(item.name)}
+            </span>
+            <span class="text-left">
+              <strong class="block">{item.name}</strong>
+              <span class="text-sm text-primary">{item.role}</span>
+            </span>
+          </figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</Section>
+
+<style>
+  /* With JavaScript the testimonials share one slot and only the active one is
+     shown; without it, all of them are read one after the other. */
+  :global(.js) .testimonial-slides {
+    display: grid;
+  }
+  :global(.js) .testimonial-slide {
+    grid-area: 1 / 1;
+  }
+  :global(.js) .testimonial-slide:not([data-active]) {
+    visibility: hidden;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .testimonial-slide[data-active] {
+      animation: testimonial-in 0.5s ease-out both;
+    }
+  }
+
+  @keyframes testimonial-in {
+    from {
+      opacity: 0;
+      translate: 0 0.75rem;
+    }
+  }
+</style>
