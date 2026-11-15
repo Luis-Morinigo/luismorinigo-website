@@ -1,0 +1,18 @@
+---
+import Icon from '@/components/Icon.astro';
+import { categoryIcons } from '@/components/resources/categoryIcons';
+import { t, toLocale } from '@/i18n';
+import type { ArticleCategory } from '@/lib/articles';
+
+interface Props {
+  category: ArticleCategory;
+}
+
+const { category } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
+---
+
+<span class="inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
+  <Icon name={categoryIcons[category]} class="size-3.5" />
+  {t(locale, `category.${category}`)}
+</span>

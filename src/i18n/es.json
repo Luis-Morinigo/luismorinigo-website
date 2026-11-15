@@ -64,5 +64,21 @@
   "chatbot.close": "Cerrar asistente virtual",
   "chatbot.title": "Asistente virtual",
   "chatbot.whatsapp": "Seguir por WhatsApp",
-  "chatbot.replies": "Respuestas rápidas"
+  "chatbot.replies": "Respuestas rápidas",
+  "resources.metaTitle": "Recursos — Luis Morinigo",
+  "resources.title": "Centro de",
+  "resources.highlight": "Recursos",
+  "resources.lead": "Conocimiento práctico para transformar tu negocio: artículos y guías sobre finanzas, procesos y tecnología.",
+  "resources.filter": "Filtrar por categoría",
+  "resources.all": "Todos",
+  "resources.read": "Leer artículo",
+  "resources.minutes": "min de lectura",
+  "category.finanzas": "Finanzas",
+  "category.procesos": "Procesos",
+  "category.desarrollo": "Desarrollo",
+  "resources.back": "Volver a Recursos",
+  "resources.downloadTitle": "Recurso descargable",
+  "resources.download": "Descargar",
+  "resources.others": "Otros artículos",
+  "nav.resources": "Recursos"
 }

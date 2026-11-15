@@ -16,4 +16,5 @@ export const navItems: NavItem[] = [
   { label: 'nav.services', path: '/#servicios' },
   { label: 'nav.testimonials', path: '/#testimonios' },
   { label: 'nav.projects', path: '/#proyectos' },
+  { label: 'nav.resources', path: '/recursos/' },
 ];

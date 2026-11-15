@@ -3,13 +3,16 @@ import CtaLink from '@/components/CtaLink.astro';
 import LangSwitch from '@/components/LangSwitch.astro';
 import Logo from '@/components/Logo.astro';
 import { navItems } from '@/config/navigation';
-import { localizedPath, t, toLocale } from '@/i18n';
+import { basePath, localizedPath, t, toLocale } from '@/i18n';
 
 const locale = toLocale(Astro.currentLocale);
 const homeHref = localizedPath(locale, '/');
+const current = basePath(Astro.url.pathname);
 const nav = navItems.map((item) => ({
   label: t(locale, item.label),
   href: localizedPath(locale, item.path),
+  // Page links (not in-page anchors) are marked as current on their pages and below.
+  current: !item.path.includes('#') && current.startsWith(item.path),
 }));
 ---
 
@@ -32,7 +35,7 @@ const nav = navItems.map((item) => ({
         class="hidden flex-wrap gap-x-7.5 gap-y-1.5 md:flex"
       >
         {nav.map((item) => (
-          <a href={item.href} class="nav-link">
+          <a href={item.href} aria-current={item.current ? 'page' : undefined} class="nav-link">
             {item.label}
           </a>
         ))}
@@ -99,7 +102,11 @@ const nav = navItems.map((item) => ({
       {nav.length > 0 && (
         <nav aria-label={t(locale, 'header.navLabel')} class="flex flex-col gap-2">
           {nav.map((item) => (
-            <a href={item.href} class="nav-link py-3 text-base">
+            <a
+              href={item.href}
+              aria-current={item.current ? 'page' : undefined}
+              class="nav-link py-3 text-base"
+            >
               {item.label}
             </a>
           ))}

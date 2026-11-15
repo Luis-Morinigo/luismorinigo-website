@@ -1,0 +1,110 @@
+---
+import { Image } from 'astro:assets';
+import { render, type CollectionEntry } from 'astro:content';
+import Card from '@/components/Card.astro';
+import Icon from '@/components/Icon.astro';
+import CategoryTag from '@/components/resources/CategoryTag.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { localizedPath, t, toLocale } from '@/i18n';
+import { readingMinutes } from '@/lib/articles';
+import { articleSlug, getArticles } from '@/lib/content';
+
+interface Props {
+  article: CollectionEntry<'articles'>;
+}
+
+const { article } = Astro.props;
+const { data } = article;
+const locale = toLocale(Astro.currentLocale);
+const { Content } = await render(article);
+const others = (await getArticles(locale)).filter((a) => a.id !== article.id).slice(0, 3);
+const date = data.date
+  ? new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(data.date)
+  : null;
+---
+
+<BaseLayout title={`${data.title} — Luis Morinigo`} description={data.description}>
+  <article class="mx-auto max-w-3xl px-4 py-14 sm:px-6 md:py-20">
+    <a
+      href={localizedPath(locale, '/recursos/')}
+      class="mb-8 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-primary"
+    >
+      <Icon name="arrow-left" class="size-4" />
+      {t(locale, 'resources.back')}
+    </a>
+
+    <header class="mb-10">
+      <CategoryTag category={data.category} />
+      <h1 class="mt-4 mb-4 text-section leading-tight font-extrabold text-balance">{data.title}</h1>
+      <p class="text-sm text-muted-foreground">
+        {readingMinutes(article.body ?? '')}
+        {t(locale, 'resources.minutes')}
+        {date && (
+          <>
+            <span aria-hidden="true"> · </span>
+            <time datetime={data.date?.toISOString().slice(0, 10)}>{date}</time>
+          </>
+        )}
+      </p>
+      {data.cover && (
+        <Image
+          src={data.cover}
+          alt={data.coverAlt ?? ''}
+          widths={[768, 1536]}
+          sizes="(min-width: 48rem) 48rem, 100vw"
+          class="mt-8 aspect-video w-full rounded-card border border-border object-cover"
+        />
+      )}
+    </header>
+
+    <div class="article-body">
+      <Content />
+    </div>
+
+    {data.download && (
+      <Card
+        as="div"
+        class="mt-12 flex flex-col items-start justify-between gap-4 p-6 sm:flex-row sm:items-center"
+      >
+        <div>
+          <p class="font-bold">{t(locale, 'resources.downloadTitle')}</p>
+          <p class="text-sm break-all text-muted-foreground">{data.download}</p>
+        </div>
+        <a
+          href={`/descargas/${data.download}`}
+          download
+          class="btn-primary min-h-12 w-full px-5 text-base sm:w-auto"
+        >
+          <Icon name="download" class="size-4.5" />
+          {t(locale, 'resources.download')}
+          <span class="sr-only">{` ${data.download}`}</span>
+        </a>
+      </Card>
+    )}
+  </article>
+
+  {others.length > 0 && (
+    <aside aria-labelledby="otros-articulos" class="border-t border-secondary bg-section-alt">
+      <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+        <h2 id="otros-articulos" class="mb-6 text-2xl font-extrabold">
+          {t(locale, 'resources.others')}
+        </h2>
+        <ul class="flex flex-col gap-4">
+          {others.map((other) => (
+            <li>
+              <Card hover class="relative flex flex-col gap-2 p-5">
+                <CategoryTag category={other.data.category} />
+                <a
+                  href={localizedPath(locale, `/recursos/${articleSlug(other)}/`)}
+                  class="font-bold text-foreground after:absolute after:inset-0 after:rounded-card hover:text-primary"
+                >
+                  {other.data.title}
+                </a>
+              </Card>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </aside>
+  )}
+</BaseLayout>

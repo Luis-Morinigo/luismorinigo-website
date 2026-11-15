@@ -130,7 +130,7 @@
 }
 
 @utility nav-link {
-  @apply border-b-2 border-transparent py-1.5 text-nav font-semibold tracking-nav text-muted-foreground uppercase transition-colors hover:border-primary hover:text-foreground;
+  @apply border-b-2 border-transparent py-1.5 text-nav font-semibold tracking-nav text-muted-foreground uppercase transition-colors hover:border-primary hover:text-foreground aria-[current=page]:border-primary aria-[current=page]:text-foreground;
 }
 
 @utility icon-btn {
@@ -166,6 +166,39 @@
 /* Controls that only work with JavaScript (tabs, carousel) are not rendered without it. */
 html:not(.js) .js-only {
   display: none !important;
+}
+
+/* Reading styles for the Markdown body of an article (Recursos). */
+@utility article-body {
+  @apply text-lg leading-relaxed text-foreground/85;
+
+  & > * + * {
+    @apply mt-5;
+  }
+  & h2 {
+    @apply mt-11 text-2xl leading-snug font-extrabold text-foreground;
+  }
+  & h3 {
+    @apply mt-8 text-xl font-bold text-foreground;
+  }
+  & ul {
+    @apply list-disc pl-6;
+  }
+  & ol {
+    @apply list-decimal pl-6;
+  }
+  & li + li {
+    @apply mt-2;
+  }
+  & li::marker {
+    @apply text-primary;
+  }
+  & strong {
+    @apply font-semibold text-foreground;
+  }
+  & a {
+    @apply text-primary underline underline-offset-4;
+  }
 }
 
 @utility social-link {

@@ -1,0 +1,79 @@
+---
+import Card from '@/components/Card.astro';
+import CategoryTag from '@/components/resources/CategoryTag.astro';
+import Section from '@/components/Section.astro';
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { localizedPath, t, toLocale } from '@/i18n';
+import { articleCategories, readingMinutes } from '@/lib/articles';
+import { articleSlug, getArticles } from '@/lib/content';
+
+const locale = toLocale(Astro.currentLocale);
+const articles = await getArticles(locale);
+const filters = ['todos', ...articleCategories] as const;
+---
+
+<BaseLayout title={t(locale, 'resources.metaTitle')} description={t(locale, 'resources.lead')}>
+  <Section id="recursos" labelledby="recursos-title">
+    <div class="mb-10 text-center">
+      <h1 id="recursos-title" class="mb-3 text-section leading-tight font-extrabold text-balance">
+        {t(locale, 'resources.title')}{' '}
+        <span class="gradient-text">{t(locale, 'resources.highlight')}</span>
+      </h1>
+      <p class="mx-auto max-w-2xl text-muted-foreground">{t(locale, 'resources.lead')}</p>
+    </div>
+
+    <!-- The filter is radio buttons and CSS (:has): it works without JavaScript. -->
+    <div class="resources">
+      <fieldset class="mb-10 border-0 p-0">
+        <legend class="sr-only">{t(locale, 'resources.filter')}</legend>
+        <div class="flex flex-wrap justify-center gap-2.5">
+          {filters.map((filter, i) => (
+            <label class="inline-flex min-h-11 cursor-pointer items-center rounded-full border border-border px-4.5 text-sm font-semibold text-foreground/85 transition-colors hover:border-primary has-checked:border-primary has-checked:bg-primary has-checked:text-primary-foreground has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-primary">
+              <input
+                type="radio"
+                name="categoria"
+                value={filter}
+                id={`filtro-${filter}`}
+                class="sr-only"
+                checked={i === 0}
+              />
+              {filter === 'todos' ? t(locale, 'resources.all') : t(locale, `category.${filter}`)}
+            </label>
+          ))}
+        </div>
+      </fieldset>
+
+      <ul class="grid grid-cols-[repeat(auto-fit,minmax(min(100%,19rem),1fr))] gap-6">
+        {articles.map((article) => (
+          <li data-category={article.data.category}>
+            <Card hover class="relative flex h-full flex-col gap-3.5 p-6 md:p-7">
+              <CategoryTag category={article.data.category} />
+              <h2 class="text-xl font-bold text-balance">{article.data.title}</h2>
+              <p class="flex-1 text-base text-muted-foreground">{article.data.description}</p>
+              <div class="flex items-center justify-between gap-4 pt-1 text-sm">
+                <span class="text-muted-foreground">
+                  {readingMinutes(article.body ?? '')} {t(locale, 'resources.minutes')}
+                </span>
+                <a
+                  href={localizedPath(locale, `/recursos/${articleSlug(article)}/`)}
+                  class="font-semibold text-primary underline-offset-4 after:absolute after:inset-0 after:rounded-card hover:underline"
+                >
+                  {t(locale, 'resources.read')}
+                  <span class="sr-only">: {article.data.title}</span>
+                </a>
+              </div>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </Section>
+</BaseLayout>
+
+<style>
+  .resources:has(#filtro-finanzas:checked) [data-category]:not([data-category='finanzas']),
+  .resources:has(#filtro-procesos:checked) [data-category]:not([data-category='procesos']),
+  .resources:has(#filtro-desarrollo:checked) [data-category]:not([data-category='desarrollo']) {
+    display: none;
+  }
+</style>
