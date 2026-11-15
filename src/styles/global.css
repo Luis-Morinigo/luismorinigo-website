@@ -130,7 +130,7 @@
 }
 
 @utility nav-link {
-  @apply border-b-2 border-transparent py-1.5 text-nav font-semibold tracking-nav text-muted-foreground uppercase transition-colors hover:border-primary hover:text-foreground;
+  @apply border-b-2 border-transparent py-1.5 text-nav font-semibold tracking-nav text-muted-foreground uppercase transition-colors hover:border-primary hover:text-foreground aria-[current=page]:border-primary aria-[current=page]:text-foreground;
 }
 
 @utility icon-btn {

@@ -79,5 +79,6 @@
   "resources.back": "Back to Resources",
   "resources.downloadTitle": "Downloadable resource",
   "resources.download": "Download",
-  "resources.others": "Other articles"
+  "resources.others": "Other articles",
+  "nav.resources": "Resources"
 }
