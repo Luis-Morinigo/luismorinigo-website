@@ -1,6 +1,7 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
+import { articleCategories } from '@/lib/articles';
 
 /** Entry id = file name without extension: "home.es", "ana-garcia.en", "acme". */
 const yamlFiles = (base: string) =>
@@ -11,7 +12,7 @@ const yamlFiles = (base: string) =>
   });
 
 /** Collections with one file per language (`<slug>.es.yaml`, `<slug>.en.yaml`). */
-export const localizedCollections = ['home', 'testimonials', 'projects'] as const;
+export const localizedCollections = ['home', 'testimonials', 'projects', 'articles'] as const;
 
 const methodologyIcons = ['recycle', 'zap', 'combine'] as const;
 const serviceIcons = ['briefcase', 'code', 'trending-up', 'users'] as const;
@@ -157,4 +158,33 @@ const clients = defineCollection({
     }),
 });
 
-export const collections = { home, testimonials, projects, clients };
+/** Articles of Recursos: Markdown, one file per language (`<slug>.es.md`, `<slug>.en.md`). */
+const articles = defineCollection({
+  loader: glob({
+    pattern: '**/*.md',
+    base: './src/content/articles',
+    generateId: ({ entry }) => entry.replace(/\.md$/, ''),
+  }),
+  schema: ({ image }) =>
+    z
+      .object({
+        draft: z.boolean(),
+        title: z.string().min(1),
+        description: z.string().min(1),
+        category: z.enum(articleCategories),
+        date: z.coerce.date().optional(),
+        cover: image().optional(),
+        coverAlt: z.string().min(1).optional(),
+        /** File name inside public/descargas/; the build fails if it does not exist. */
+        download: z
+          .string()
+          .regex(/^[\w.-]+$/, 'download must be a file name inside public/descargas/')
+          .optional(),
+      })
+      .refine((data) => data.cover === undefined || data.coverAlt !== undefined, {
+        message: 'coverAlt is required when cover is set',
+        path: ['coverAlt'],
+      }),
+});
+
+export const collections = { home, testimonials, projects, clients, articles };
