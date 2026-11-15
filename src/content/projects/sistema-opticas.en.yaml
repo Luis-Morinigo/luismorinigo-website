@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 1
+title: Management System for Optical Stores
+description: An all-in-one solution in development to manage patients, inventory, sales and reports in the optical industry.
+tags: [React, Supabase, Finance]

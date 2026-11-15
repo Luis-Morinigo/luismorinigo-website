@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 3
+title: Process Automation (RPA)
+description: Software robots and macros that remove repetitive tasks in finance and accounting departments.
+tags: [RPA, Excel Macros, SAP Scripts]

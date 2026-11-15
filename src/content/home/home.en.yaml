@@ -1,0 +1,74 @@
+# Provisional translation. Replace the texts here, not in the components.
+draft: true
+title: Luis Morinigo — Finance and custom systems for SMEs
+
+hero:
+  slides:
+    - eyebrow: Finance + Software Development
+      title: Boost your Profitability
+      highlight: with Custom Technology
+      description: With 15 years of experience, I turn your financial processes into competitive advantages.
+    - eyebrow: LEAN & SCRUM Methodologies
+      title: I Accelerate your Growth
+      highlight: by Eliminating Waste
+      description: I implement agile solutions that deliver value from day one, focused on maximum efficiency.
+    - eyebrow: Strategic Partner for SMEs
+      title: I Turn your Challenges into
+      highlight: Opportunities to Scale
+      description: My mission is to be the partner you need to grow in an orderly and sustainable way.
+  secondaryCta: Learn more
+
+about:
+  title: Finance, Processes and Technology to
+  highlight: Improve your Management
+  lead: Corporate experience applied to your SME.
+  paragraphs:
+    - 15 years of experience in finance departments of multinational companies such as **Bimbo, Wal-Mart and SC Johnson**, applying continuous improvement methodologies and technology development.
+    - Today my mission is to help SMEs and entrepreneurs organize and professionalize their management through efficient processes, the right technology and teams ready to make better decisions.
+  companies: [Bimbo, Wal-Mart, SC Johnson]
+  # photo: ./luis.jpg  (path relative to this file; replaces the placeholder)
+  photoAlt: Luis Morinigo
+
+methodology:
+  title: 'My Methodology:'
+  highlight: Results, not just Code
+  lead: This is how I turn your challenges into competitive advantages, with a proven approach to success.
+  items:
+    - icon: recycle
+      title: LEAN Philosophy
+      text: I identify and remove everything in your processes that adds no value. Less waste, more efficiency and higher profitability.
+    - icon: zap
+      title: SCRUM Methodology
+      text: I build solutions in short, fast cycles (sprints), so we can adapt and deliver tangible value from day one.
+    - icon: combine
+      title: Unique Synergy
+      text: I combine finance and technology. I understand your numbers and build the exact tool to improve them. No middlemen, nothing lost in translation.
+      featured: true
+
+services:
+  title: 'My Services:'
+  highlight: The Strategic Fusion
+  lead: These are the tools I use to make a real impact on your business.
+  items:
+    - icon: briefcase
+      title: Corporate Finance
+      text: Profitability analysis, treasury management, and credit and collections optimization to maximize your cash flow.
+    - icon: code
+      title: Software Development
+      text: Custom applications, APIs and internal systems that fit your operational needs perfectly.
+    - icon: trending-up
+      title: Process Optimization
+      text: RPA, macros and scripts to automate repetitive tasks, freeing up time and reducing human error.
+    - icon: users
+      title: Training and Development
+      text: Training teams to adopt new technologies and methodologies, ensuring autonomous and sustainable growth.
+
+testimonials:
+  title: They Trust
+  highlight: My Work
+  lead: Helping companies optimize, innovate and grow.
+
+projects:
+  title: Projects and
+  highlight: Solutions
+  lead: Examples of how I transform business management.

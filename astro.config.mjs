@@ -12,6 +12,13 @@ export default defineConfig({
   },
   env: {
     schema: {
+      // "production" only for the build of main: it fails on draft content (principle 2).
+      PUBLIC_ENV: envField.enum({
+        context: 'client',
+        access: 'public',
+        values: ['development', 'production'],
+        default: 'development',
+      }),
       PUBLIC_WHATSAPP_NUMBER: envField.string({
         context: 'client',
         access: 'public',

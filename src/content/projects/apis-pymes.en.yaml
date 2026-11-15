@@ -1,0 +1,6 @@
+# image: ./<file>.png and imageAlt replace the placeholder (path relative to this file).
+draft: true
+order: 2
+title: APIs for SME Integration
+description: Custom APIs to connect systems, automate workflows and improve financial efficiency.
+tags: [Node.js, REST API, Automation]

@@ -1,0 +1,74 @@
+# Provisional texts taken from the current site. Replace them here, not in the components.
+draft: true
+title: Luis Morinigo — Finanzas y sistemas a medida para pymes
+
+hero:
+  slides:
+    - eyebrow: Finanzas + Desarrollo de Software
+      title: Optimiza tu Rentabilidad
+      highlight: con Tecnología a Medida
+      description: Con 15 años de experiencia, transformo tus procesos financieros en ventajas competitivas.
+    - eyebrow: Metodologías LEAN & SCRUM
+      title: Acelero tu Crecimiento
+      highlight: Eliminando el Desperdicio
+      description: Implemento soluciones ágiles que entregan valor desde el primer día, enfocadas en la máxima eficiencia.
+    - eyebrow: Partner Estratégico para Pymes
+      title: Convierto tus Desafíos en
+      highlight: Oportunidades de Escala
+      description: Mi misión es ser el socio que necesitas para crecer de forma ordenada y sostenible.
+  secondaryCta: Descubre más
+
+about:
+  title: Finanzas, Procesos y Tecnología para
+  highlight: Mejorar tu Gestión
+  lead: Experiencia corporativa aplicada a tu Pyme.
+  paragraphs:
+    - 15 años de experiencia en áreas financieras dentro de compañías multinacionales como **Bimbo, Wal-Mart y SC Johnson**, aplicando metodologías de mejora continua y desarrollo tecnológico.
+    - Hoy mi misión es ayudar a pymes y emprendedores a ordenar y profesionalizar su gestión mediante procesos eficientes, desarrollando tecnologías adecuadas y equipos preparados para tomar mejores decisiones.
+  companies: [Bimbo, Wal-Mart, SC Johnson]
+  # photo: ./luis.jpg  (path relative to this file; replaces the placeholder)
+  photoAlt: Luis Morinigo
+
+methodology:
+  title: 'Mi Metodología:'
+  highlight: Resultados, no solo Código
+  lead: Así es como convierto tus desafíos en ventajas competitivas, aplicando un enfoque probado para el éxito.
+  items:
+    - icon: recycle
+      title: Filosofía LEAN
+      text: Identifico y elimino todo lo que no aporta valor en tus procesos. Menos desperdicio, más eficiencia y mayor rentabilidad.
+    - icon: zap
+      title: Metodología SCRUM
+      text: Desarrollo soluciones en ciclos cortos y rápidos (sprints), permitiendo adaptarnos y entregar valor tangible desde el primer día.
+    - icon: combine
+      title: Sinergia Única
+      text: Combino finanzas y tecnología. Entiendo tus números y construyo la herramienta exacta para mejorarlos. Sin intermediarios, sin traducciones.
+      featured: true
+
+services:
+  title: 'Mis Servicios:'
+  highlight: La Fusión Estratégica
+  lead: Estas son las herramientas que uso para generar un impacto real en tu negocio.
+  items:
+    - icon: briefcase
+      title: Finanzas Corporativas
+      text: Análisis de rentabilidad, gestión de tesorería, optimización de créditos y cobranzas para maximizar tu flujo de caja.
+    - icon: code
+      title: Desarrollo de Software
+      text: Creación de aplicaciones a medida, APIs y sistemas internos que se adaptan perfectamente a tus necesidades operativas.
+    - icon: trending-up
+      title: Optimización de Procesos
+      text: Aplicación de RPA, macros y scripts para automatizar tareas repetitivas, liberando tiempo y reduciendo errores humanos.
+    - icon: users
+      title: Capacitación y Desarrollo
+      text: Formación de equipos para que adopten nuevas tecnologías y metodologías, asegurando un crecimiento autónomo y sostenible.
+
+testimonials:
+  title: Confían en
+  highlight: Mi Trabajo
+  lead: Ayudando a empresas a optimizar, innovar y crecer.
+
+projects:
+  title: Proyectos y
+  highlight: Soluciones
+  lead: Ejemplos de cómo transformo la gestión empresarial.

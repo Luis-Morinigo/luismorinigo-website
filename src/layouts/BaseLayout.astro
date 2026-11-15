@@ -4,6 +4,7 @@ import Footer from '@/components/Footer.astro';
 import Header from '@/components/Header.astro';
 import WhatsAppButton from '@/components/WhatsAppButton.astro';
 import { defaultLocale, locales, localizedPath, t, toLocale } from '@/i18n';
+import { checkContent } from '@/lib/content';
 
 interface Props {
   /** Page title; defaults to the site title. */
@@ -12,6 +13,9 @@ interface Props {
   /** Path under public/ or absolute URL. */
   ogImage?: string;
 }
+
+// Fails the build on drafts in production or content missing in a language.
+await checkContent();
 
 const locale = toLocale(Astro.currentLocale);
 const {
