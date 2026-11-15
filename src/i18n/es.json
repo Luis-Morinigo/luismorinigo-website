@@ -18,5 +18,8 @@
   "footer.rights": "Todos los derechos reservados.",
   "footer.mission": "Construido con la misión de potenciar a otros.",
   "footer.homeLabel": "Luis Morinigo, ir al inicio",
-  "whatsapp.label": "Escribir por WhatsApp"
+  "whatsapp.label": "Escribir por WhatsApp",
+  "hero.tablistLabel": "Mensajes destacados",
+  "hero.pause": "Pausar mensajes",
+  "hero.play": "Reanudar mensajes"
 }

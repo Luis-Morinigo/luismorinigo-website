@@ -18,5 +18,8 @@
   "footer.rights": "All rights reserved.",
   "footer.mission": "Built with the mission of empowering others.",
   "footer.homeLabel": "Luis Morinigo, go to home",
-  "whatsapp.label": "Message on WhatsApp"
+  "whatsapp.label": "Message on WhatsApp",
+  "hero.tablistLabel": "Featured messages",
+  "hero.pause": "Pause messages",
+  "hero.play": "Resume messages"
 }

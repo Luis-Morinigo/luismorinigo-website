@@ -2,12 +2,15 @@
 import type { CollectionEntry } from 'astro:content';
 import CtaLink from '@/components/CtaLink.astro';
 import HeroFacets from '@/components/home/HeroFacets.astro';
+import PauseButton from '@/components/PauseButton.astro';
+import { t, toLocale } from '@/i18n';
 
 interface Props {
   home: CollectionEntry<'home'>['data'];
 }
 
 const { home } = Astro.props;
+const locale = toLocale(Astro.currentLocale);
 const { slides, secondaryCta } = home.hero;
 ---
 
@@ -46,8 +49,39 @@ const { slides, secondaryCta } = home.hero;
     </div>
   </div>
 
-  <slot />
+  <!-- The tabs only work with JavaScript; without it they are not rendered. -->
+  <div class="js-only mx-auto flex max-w-310 items-end gap-4 px-4 pb-10 sm:px-6 lg:px-10">
+    <div
+      role="tablist"
+      aria-label={t(locale, 'hero.tablistLabel')}
+      class="grid min-w-0 flex-1 grid-cols-3 gap-2 sm:gap-4"
+    >
+      {slides.map((slide, i) => (
+        <button
+          type="button"
+          role="tab"
+          id={`hero-tab-${i}`}
+          aria-controls={`hero-panel-${i}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+          class="hero-tab group flex min-h-11 cursor-pointer flex-col justify-center gap-3 text-left"
+        >
+          <span class="block h-0.75 overflow-hidden rounded-full bg-border">
+            <span class="hero-tab-fill block h-full origin-left bg-primary" />
+          </span>
+          <span class="sr-only text-nav font-semibold tracking-nav text-muted-foreground uppercase transition-colors group-hover:text-foreground group-aria-selected:text-foreground sm:not-sr-only">
+            {slide.eyebrow}
+          </span>
+        </button>
+      ))}
+    </div>
+    <PauseButton pauseLabel={t(locale, 'hero.pause')} playLabel={t(locale, 'hero.play')} />
+  </div>
 </section>
+
+<script>
+  import '@/scripts/hero-tabs';
+</script>
 
 <style>
   /* With JavaScript the messages share one slot (the tallest sets the height,
@@ -66,6 +100,32 @@ const { slides, secondaryCta } = home.hero;
   @media (prefers-reduced-motion: no-preference) {
     :global(.js) .hero-panel[data-active] {
       animation: hero-panel-in 0.6s ease-out both;
+    }
+  }
+
+  /* Progress of the active tab: runs for the 6 s of each message and stops while paused. */
+  .hero-tab-fill {
+    scale: 0 1;
+  }
+  .hero-tab[data-done] .hero-tab-fill {
+    scale: 1 1;
+  }
+  .hero-tab[aria-selected='true'] .hero-tab-fill {
+    animation: hero-progress 6s linear forwards;
+  }
+  [data-paused] .hero-tab[aria-selected='true'] .hero-tab-fill {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-tab[aria-selected='true'] .hero-tab-fill {
+      animation: none;
+      scale: 1 1;
+    }
+  }
+
+  @keyframes hero-progress {
+    to {
+      scale: 1 1;
     }
   }
 
