@@ -12,6 +12,8 @@ interface Props {
   description?: string;
   /** Path under public/ or absolute URL. */
   ogImage?: string;
+  /** Keeps the page out of search results (e.g. the thank-you page). */
+  noindex?: boolean;
 }
 
 // Fails the build on drafts in production or content missing in a language.
@@ -22,6 +24,7 @@ const {
   title = t(locale, 'meta.title'),
   description = t(locale, 'meta.description'),
   ogImage = '/og-default.png',
+  noindex = false,
 } = Astro.props;
 
 const site = Astro.site ?? new URL('https://luismorinigo.com');
@@ -45,6 +48,7 @@ const ogImageUrl = new URL(ogImage, site).href;
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
     {alternates.map((a) => (
       <link rel="alternate" hreflang={a.hreflang} href={a.href} />
     ))}
